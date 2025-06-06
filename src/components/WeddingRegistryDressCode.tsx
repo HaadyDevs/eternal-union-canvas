@@ -1,13 +1,19 @@
-
 import React from 'react';
 
 const WeddingRegistryDressCode = () => {
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24 max-w-6xl mx-auto px-4">
+    <section className="py-16 md:py-24 bg-white relative">
+      {/* Overlapping Title */}
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white px-6 py-3 border z-10">
+        <h2 className="font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide text-black">
+          REGISTRY
+        </h2>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24 max-w-6xl mx-auto px-4 pt-8">
         {/* Registry Section */}
         <div className="flex-1 max-w-xs text-center mx-auto">
-          <h3 className="text-2xl md:text-3xl font-cinzel font-bold text-black mb-4 uppercase">
+          <h3 className="text-xl md:text-2xl font-cinzel font-bold text-black mb-4 uppercase">
             REGISTRY
           </h3>
           <img 
@@ -25,7 +31,7 @@ const WeddingRegistryDressCode = () => {
 
         {/* Dress Code Section */}
         <div className="flex-1 max-w-xs text-center mx-auto">
-          <h3 className="text-2xl md:text-3xl font-cinzel font-bold text-black mb-4 uppercase">
+          <h3 className="text-xl md:text-2xl font-cinzel font-bold text-black mb-4 uppercase">
             DRESS CODE
           </h3>
           <img 

@@ -3,15 +3,15 @@ import React from 'react';
 
 const WeddingLocation = () => {
   return (
-    <section className="w-full py-16 md:py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="font-cinzel text-3xl md:text-4xl font-bold uppercase tracking-wide text-black">
-            LOCATION
-          </h2>
-        </div>
-        
+    <section className="w-full py-16 md:py-20 bg-white relative">
+      {/* Overlapping Title */}
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white px-6 py-3 border z-10">
+        <h2 className="font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide text-black">
+          LOCATION
+        </h2>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Venue Image */}
         <div className="text-center mb-8">
           <img 

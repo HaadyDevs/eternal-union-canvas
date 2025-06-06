@@ -19,6 +19,13 @@ const WeddingSchedule = () => {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-black/40"></div>
       
+      {/* Overlapping Title */}
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white px-6 py-3 border z-20">
+        <h2 className="text-black font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide">
+          SCHEDULE
+        </h2>
+      </div>
+      
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Pre-title */}
@@ -30,13 +37,13 @@ const WeddingSchedule = () => {
         
         {/* Main title */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-white font-cinzel text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+          <h3 className="text-white font-cinzel text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-wide">
             OUR SPECIAL DAY'S SCHEDULE
-          </h2>
+          </h3>
         </div>
         
-        {/* Schedule Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        {/* Schedule Grid - Mobile: Single Column, Desktop: 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {scheduleItems.map((item, index) => (
             <div key={index} className="text-center">
               <div className="mb-3">

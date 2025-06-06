@@ -1,11 +1,10 @@
-
 import React from 'react';
 
 const WeddingHero = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       {/* Couple Names */}
-      <div className="text-center mb-8 sm:mb-12">
+      <div className="text-center mb-4 sm:mb-12">
         <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-medium tracking-wider">
           SOPHIA & ALEXANDER
         </h1>
@@ -106,18 +105,25 @@ const WeddingHero = () => {
             </h2>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-4 relative">
             {/* Main Portrait Photo */}
-            <div className="w-full aspect-[3/4] bg-gray-200 border">
+            <div className="w-full aspect-[3/4] bg-gray-200 border relative">
               <img 
                 src="https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=533" 
                 alt="Couple portrait"
                 className="w-full h-full object-cover grayscale"
               />
+              
+              {/* Overlapping Date */}
+              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 border">
+                <h2 className="font-cinzel text-xl font-medium tracking-[0.2em] text-center">
+                  14 • 07 • 2024
+                </h2>
+              </div>
             </div>
 
             {/* Side Photos */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center mt-8">
               <div className="w-24 h-24 bg-gray-200 border">
                 <img 
                   src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=200&h=200" 
