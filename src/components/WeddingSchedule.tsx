@@ -35,8 +35,8 @@ const WeddingSchedule = () => {
           </h2>
         </div>
         
-        {/* Schedule Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        {/* Schedule Grid - Single column on mobile, 4 columns on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {scheduleItems.map((item, index) => (
             <div key={index} className="text-center">
               <div className="mb-3">
