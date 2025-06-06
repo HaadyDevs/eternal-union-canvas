@@ -19,20 +19,24 @@ const WeddingSchedule = () => {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-black/40"></div>
       
-      {/* Overlapping Title - No background, positioned to overlap */}
-      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
-        <h2 className="text-black font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide">
-          OUR SPECIAL DAY'S
-        </h2>
-        <h2 className="text-black font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide text-center">
-          SCHEDULE
-        </h2>
-      </div>
-      
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        {/* Schedule Grid - Mobile: Single Column, Desktop: 4 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Pre-title */}
+        <div className="text-center mb-4">
+          <p className="text-white text-xs md:text-sm font-sans uppercase tracking-wider">
+            Here's a sneak peek of
+          </p>
+        </div>
+        
+        {/* Main title */}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-white font-cinzel text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+            OUR SPECIAL DAY'S SCHEDULE
+          </h2>
+        </div>
+        
+        {/* Schedule Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {scheduleItems.map((item, index) => (
             <div key={index} className="text-center">
               <div className="mb-3">

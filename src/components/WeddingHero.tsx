@@ -1,17 +1,18 @@
+
 import React from 'react';
 
 const WeddingHero = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Couple Names */}
-      <div className="text-center mb-4 sm:mb-12">
+      <div className="text-center mb-8 sm:mb-12">
         <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-medium tracking-wider">
           SOPHIA & ALEXANDER
         </h1>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 relative">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8">
         
         {/* Desktop Layout */}
         <div className="hidden lg:block w-full max-w-6xl">
@@ -99,15 +100,15 @@ const WeddingHero = () => {
 
         {/* Mobile Layout */}
         <div className="md:hidden w-full max-w-sm">
-          <div className="text-center mb-4">
-            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em]">
-              26 • 06 • 2026
+          <div className="text-center mb-6">
+            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em] mb-6">
+              14 • 07 • 2024
             </h2>
           </div>
           
-          <div className="space-y-4 relative">
+          <div className="space-y-4">
             {/* Main Portrait Photo */}
-            <div className="w-full aspect-[3/4] bg-gray-200 border relative">
+            <div className="w-full aspect-[3/4] bg-gray-200 border">
               <img 
                 src="https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=533" 
                 alt="Couple portrait"
