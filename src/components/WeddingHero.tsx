@@ -4,13 +4,6 @@ import React from 'react';
 const WeddingHero = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Couple Names */}
-      <div className="text-center mb-8 sm:mb-12">
-        <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-medium tracking-wider">
-          SOPHIA & ALEXANDER
-        </h1>
-      </div>
-
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8">
         

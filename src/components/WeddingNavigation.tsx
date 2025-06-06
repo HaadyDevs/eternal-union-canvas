@@ -31,6 +31,13 @@ const WeddingNavigation = () => {
             </a>
           </div>
           
+          {/* Desktop Couple Name - Centered */}
+          <div className="hidden md:block">
+            <h1 className="font-cinzel text-lg font-bold tracking-wide">
+              BRIAN & MEGAN
+            </h1>
+          </div>
+
           {/* Mobile Navigation - Only Show Name and Menu Button */}
           <div className="md:hidden flex items-center justify-between w-full">
             <h1 className="font-cinzel text-lg font-bold tracking-wide">
