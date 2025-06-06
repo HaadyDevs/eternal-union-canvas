@@ -19,8 +19,8 @@ const WeddingSchedule = () => {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-black/40"></div>
       
-      {/* Overlapping Title */}
-      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white px-6 py-3 border z-20">
+      {/* Section Title - Overlapping */}
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
         <h2 className="text-black font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide">
           SCHEDULE
         </h2>

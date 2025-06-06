@@ -5,7 +5,7 @@ const WeddingHero = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Couple Names */}
-      <div className="text-center mb-4 sm:mb-12">
+      <div className="text-center mb-2 sm:mb-12">
         <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-medium tracking-wider">
           SOPHIA & ALEXANDER
         </h1>
