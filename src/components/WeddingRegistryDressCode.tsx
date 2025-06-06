@@ -1,10 +1,11 @@
+
 import React from 'react';
 
 const WeddingRegistryDressCode = () => {
   return (
     <section className="py-16 md:py-24 bg-white relative">
-      {/* Overlapping Title */}
-      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white px-6 py-3 border z-10">
+      {/* Overlapping Title - No background, positioned to overlap */}
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10">
         <h2 className="font-cinzel text-2xl md:text-3xl font-bold uppercase tracking-wide text-black">
           REGISTRY
         </h2>

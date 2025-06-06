@@ -29,7 +29,7 @@ const WeddingNavigation = () => {
           {/* Mobile - Just the logo */}
           <div className="md:hidden">
             <h1 className="font-cinzel text-lg font-medium tracking-wider">
-              BRIAN & MEGAN
+              SOPHIA & ALEXANDER
             </h1>
           </div>
 
@@ -70,7 +70,7 @@ const WeddingNavigation = () => {
         <div className="w-full py-6 px-4">
           <div className="flex justify-between items-center">
             <h1 className="font-cinzel text-lg font-medium tracking-wider">
-              BRIAN & MEGAN
+              SOPHIA & ALEXANDER
             </h1>
             <button 
               onClick={toggleMenu}

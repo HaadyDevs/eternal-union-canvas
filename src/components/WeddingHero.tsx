@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const WeddingHero = () => {
@@ -100,9 +99,9 @@ const WeddingHero = () => {
 
         {/* Mobile Layout */}
         <div className="md:hidden w-full max-w-sm">
-          <div className="text-center mb-2">
-            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em] mb-2">
-              14 • 07 • 2024
+          <div className="text-center mb-4">
+            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em]">
+              26 • 06 • 2026
             </h2>
           </div>
           
@@ -114,17 +113,10 @@ const WeddingHero = () => {
                 alt="Couple portrait"
                 className="w-full h-full object-cover grayscale"
               />
-              
-              {/* Overlapping Date */}
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 border">
-                <h2 className="font-cinzel text-xl font-medium tracking-[0.2em] text-center">
-                  14 • 07 • 2024
-                </h2>
-              </div>
             </div>
 
             {/* Side Photos */}
-            <div className="flex gap-4 justify-center mt-8">
+            <div className="flex gap-4 justify-center">
               <div className="w-24 h-24 bg-gray-200 border">
                 <img 
                   src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=200&h=200" 
