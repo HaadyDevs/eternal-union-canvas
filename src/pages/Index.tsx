@@ -4,6 +4,7 @@ import WeddingNavigation from '../components/WeddingNavigation';
 import WeddingHero from '../components/WeddingHero';
 import WeddingSchedule from '../components/WeddingSchedule';
 import WeddingLocation from '../components/WeddingLocation';
+import WeddingCountdown from '../components/WeddingCountdown';
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <WeddingHero />
       <WeddingSchedule />
       <WeddingLocation />
+      <WeddingCountdown />
     </div>
   );
 };
