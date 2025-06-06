@@ -1,13 +1,22 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, X } from 'lucide-react';
 
 const WeddingNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [isOpen]);
 
   return (
     <>
-      <nav className="w-full py-6 px-4 sm:px-8 relative z-50">
+      <nav className="w-full py-6 px-4 sm:px-8 relative z-50 bg-white">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
@@ -54,12 +63,12 @@ const WeddingNavigation = () => {
         </div>
       </nav>
 
-      {/* Mobile Navigation Overlay - Only covers content area below navigation */}
+      {/* Mobile Navigation Overlay - Smooth fade in */}
       {isOpen && (
         <div className="md:hidden fixed inset-0 top-[88px] bg-white z-40">
           <div 
-            className={`h-full flex flex-col items-center justify-center space-y-12 transition-opacity duration-500 ${
-              isOpen ? 'opacity-100' : 'opacity-0'
+            className={`h-full flex flex-col items-center justify-center space-y-12 transition-opacity duration-500 ease-in-out ${
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <div className="flex flex-col items-center space-y-8">
