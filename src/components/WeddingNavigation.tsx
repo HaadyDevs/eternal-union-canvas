@@ -39,11 +39,11 @@ const WeddingNavigation = () => {
               </button>
             </SheetTrigger>
             <SheetContent 
-              side="top" 
-              className="h-screen w-full bg-white border-none p-0"
+              side="bottom" 
+              className="h-screen w-full bg-white border-none p-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom data-[state=open]:fade-in data-[state=closed]:fade-out"
             >
               <div className="flex flex-col items-center justify-center h-full space-y-12">
-                {/* Navigation Links */}
+                {/* Navigation Links Only */}
                 <div className="flex flex-col items-center space-y-8">
                   <a 
                     href="#story" 
