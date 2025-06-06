@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 
@@ -32,7 +33,7 @@ const WeddingNavigation = () => {
             </h1>
           </div>
 
-          {/* Right Side Buttons - Desktop */}
+          {/* Right Side Buttons */}
           <div className="hidden md:flex space-x-4">
             <button className="font-cinzel text-sm hover:opacity-70 transition-opacity">
               FAQ
@@ -49,56 +50,77 @@ const WeddingNavigation = () => {
               className="p-2 transition-transform duration-300"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              {isMenuOpen ? (
-                <X size={24} className="transition-all duration-300" />
-              ) : (
-                <Plus size={24} className="transition-all duration-300" />
-              )}
+              <div className={`transition-transform duration-300 ${isMenuOpen ? 'rotate-45' : ''}`}>
+                {isMenuOpen ? (
+                  <X size={24} className="transition-all duration-300" />
+                ) : (
+                  <Plus size={24} className="transition-all duration-300" />
+                )}
+              </div>
             </button>
           </div>
         </div>
       </nav>
 
       {/* Mobile Full Screen Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-50 md:hidden animate-fade-in">
-          <div className="flex flex-col items-center justify-center h-full space-y-8">
-            <a 
-              href="#story" 
-              className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
-              onClick={toggleMenu}
-            >
-              OUR STORY
-            </a>
-            <a 
-              href="#travel" 
-              className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
-              onClick={toggleMenu}
-            >
-              TRAVEL & STAY
-            </a>
-            <a 
-              href="#registry" 
-              className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
-              onClick={toggleMenu}
-            >
-              INFO
-            </a>
+      <div className={`fixed inset-0 bg-white z-50 md:hidden transition-opacity duration-300 ${
+        isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      }`}>
+        {/* Header in overlay */}
+        <div className="w-full py-6 px-4">
+          <div className="flex justify-between items-center">
+            <h1 className="font-cinzel text-lg font-medium tracking-wider">
+              BRIAN & MEGAN
+            </h1>
             <button 
-              className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
               onClick={toggleMenu}
+              className="p-2 transition-transform duration-300"
+              aria-label="Close menu"
             >
-              FAQS
-            </button>
-            <button 
-              className="font-cinzel text-xl px-8 py-3 border border-black hover:bg-black hover:text-white transition-colors"
-              onClick={toggleMenu}
-            >
-              RSVP
+              <div className={`transition-transform duration-300 ${isMenuOpen ? 'rotate-45' : ''}`}>
+                <X size={24} className="transition-all duration-300" />
+              </div>
             </button>
           </div>
         </div>
-      )}
+
+        {/* Menu content */}
+        <div className="flex flex-col items-center justify-center h-full -mt-20 space-y-8">
+          <a 
+            href="#story" 
+            className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
+            onClick={toggleMenu}
+          >
+            Our Story
+          </a>
+          <a 
+            href="#travel" 
+            className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
+            onClick={toggleMenu}
+          >
+            Travel & Stay
+          </a>
+          <a 
+            href="#registry" 
+            className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
+            onClick={toggleMenu}
+          >
+            Registry
+          </a>
+          <button 
+            className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
+            onClick={toggleMenu}
+          >
+            FAQ
+          </button>
+          <button 
+            className="font-cinzel text-xl px-6 py-3 border-2 border-black hover:bg-black hover:text-white transition-colors"
+            onClick={toggleMenu}
+          >
+            RSVP
+          </button>
+        </div>
+      </div>
     </>
   );
 };

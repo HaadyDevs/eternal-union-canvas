@@ -1,8 +1,9 @@
+
 import React from 'react';
 
 const WeddingHero = () => {
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col">
       {/* Couple Names */}
       <div className="text-center mb-4 sm:mb-12">
         <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-medium tracking-wider">
@@ -11,7 +12,7 @@ const WeddingHero = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 relative">
         
         {/* Desktop Layout */}
         <div className="hidden lg:block w-full max-w-6xl">
@@ -99,8 +100,8 @@ const WeddingHero = () => {
 
         {/* Mobile Layout */}
         <div className="md:hidden w-full max-w-sm">
-          <div className="text-center mb-6">
-            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em] mb-6">
+          <div className="text-center mb-2">
+            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em] mb-2">
               14 • 07 • 2024
             </h2>
           </div>
