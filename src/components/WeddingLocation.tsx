@@ -3,7 +3,7 @@ import OptimizedImage from "./OptimizedImage";
 
 const WeddingLocation = () => {
   return (
-    <section id="travel" className="w-full py-24 md:py-32 bg-white">
+    <section id="location" className="w-full py-24 md:py-32 bg-white">
       <div className="mx-auto sm:px-6 lg:px-64">
         {/* Section Title */}
         <h2 className="text-center font-cinzel text-6xl md:text-7xl font-bold uppercase tracking-wide text-black -mb-20 z-50 relative">
@@ -42,7 +42,15 @@ const WeddingLocation = () => {
 
         {/* Travel & Stay Button */}
         <div className="text-center">
-          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors">
+          <button
+            onClick={() => {
+              window.open(
+                "https://maps.app.goo.gl/WW8ipu1bGC7o6jnS7",
+                "_blank"
+              );
+            }}
+            className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors"
+          >
             Open in Maps
           </button>
         </div>

@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   HeartHandshake,
@@ -65,7 +64,7 @@ const WeddingSchedule = () => {
       overlay={true}
       overlayOpacity={0.7}
     >
-      <section id="story" className="relative">
+      <section id="schedule" className="relative">
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Pre-title */}
           <div className="text-center mb-8">
@@ -90,7 +89,10 @@ const WeddingSchedule = () => {
                 const isLeft = index % 2 === 0;
 
                 return (
-                  <div key={index} className="relative flex items-center w-full">
+                  <div
+                    key={index}
+                    className="relative flex items-center w-full"
+                  >
                     {/* Left Side */}
                     <div
                       className={`w-1/2 ${

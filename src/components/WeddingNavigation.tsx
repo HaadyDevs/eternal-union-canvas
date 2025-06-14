@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plus, X } from "lucide-react";
@@ -40,22 +39,22 @@ const WeddingNavigation = () => {
           {/* Desktop Navigation - Left Side */}
           <div className="hidden md:flex space-x-8">
             <button
-              onClick={() => scrollToSection("story")}
+              onClick={() => scrollToSection("schedule")}
               className="font-cinzel text-sm hover:opacity-70 transition-opacity"
             >
-              Our Story
+              Schedule
             </button>
             <button
-              onClick={() => scrollToSection("travel")}
+              onClick={() => scrollToSection("location")}
               className="font-cinzel text-sm hover:opacity-70 transition-opacity"
             >
-              Travel & Stay
+              Location
             </button>
             <button
-              onClick={() => scrollToSection("registry")}
+              onClick={() => scrollToSection("gifts")}
               className="font-cinzel text-sm hover:opacity-70 transition-opacity"
             >
-              Registry
+              Gifts
             </button>
           </div>
 
@@ -121,47 +120,36 @@ const WeddingNavigation = () => {
               <div className="flex flex-col items-center space-y-8">
                 <motion.button
                   onClick={() => {
-                    scrollToSection("story");
+                    scrollToSection("schedule");
                     setIsOpen(false);
                   }}
                   className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Our Story
+                  Schedule
                 </motion.button>
                 <motion.button
                   onClick={() => {
-                    scrollToSection("travel");
+                    scrollToSection("location");
                     setIsOpen(false);
                   }}
                   className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Travel & Stay
+                  Location
                 </motion.button>
                 <motion.button
                   onClick={() => {
-                    scrollToSection("registry");
+                    scrollToSection("gifts");
                     setIsOpen(false);
                   }}
                   className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Registry
-                </motion.button>
-                <motion.button
-                  onClick={() => {
-                    scrollToSection("faq");
-                    setIsOpen(false);
-                  }}
-                  className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  FAQ
+                  Gifts
                 </motion.button>
                 <Link to="/rsvp" onClick={() => setIsOpen(false)}>
                   <motion.button

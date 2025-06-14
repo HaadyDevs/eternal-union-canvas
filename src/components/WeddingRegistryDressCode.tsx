@@ -2,7 +2,7 @@ import React from "react";
 
 const WeddingRegistryDressCode = () => {
   return (
-    <section id="registry" className="py-24 md:py-32 bg-white">
+    <section id="gifts" className="py-24 md:py-32 bg-white">
       <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24 w-full max-w-[2000px] mx-auto px-4">
         {/* Registry Section */}
         <div className="flex-1 w-full text-center mx-auto relative">
@@ -12,9 +12,8 @@ const WeddingRegistryDressCode = () => {
               <p className="font-sans text-sm md:text-lg uppercase tracking-wider text-black text-center">
                 Your presence on our special day is the biggest gift we could
                 ask for — truly, no gifts are necessary! But for those
-                wonderfully stubborn ones ;) who still insist, you can
-                contribute to our Honeymoon Fund and help us make unforgettable
-                memories.
+                wonderfully stubborn ones ;) you can contribute to our Honeymoon
+                Fund and help us make unforgettable memories.
               </p>
             </div>
 
