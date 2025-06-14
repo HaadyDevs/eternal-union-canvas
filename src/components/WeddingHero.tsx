@@ -1,15 +1,16 @@
 
-import React, { useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useEffect, useRef, lazy } from "react";
 import OptimizedImage from "./OptimizedImage";
 import { useImagePreloader } from "../hooks/useImagePreloader";
+
+// Lazy load motion components to reduce initial bundle
+const motion = lazy(() => import('framer-motion').then(mod => ({ default: mod.motion })));
+const useInView = lazy(() => import('framer-motion').then(mod => ({ default: mod.useInView })));
 
 const WeddingHero = () => {
   const leftRef = React.useRef(null);
   const rightRef = React.useRef(null);
   const containerRef = useRef(null);
-  const leftInView = useInView(leftRef, { once: false, amount: 0.8 });
-  const rightInView = useInView(rightRef, { once: false, amount: 0.8 });
 
   // Preload critical hero images
   useImagePreloader({
@@ -78,38 +79,23 @@ const WeddingHero = () => {
           <br />
           LOVE, JOY, AND ETERNAL HAPPINESS.
         </p>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors"
         >
           RSVP Now
-        </motion.button>
+        </button>
       </div>
 
-      {/* Mobile/Tablet Layout */}
+      {/* Mobile/Tablet Layout - Simplified without heavy animations */}
       <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24">
         {/* Carousel Container */}
         <div
           ref={containerRef}
           className="relative w-full overflow-x-auto mb-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <motion.div
-            className="flex items-center justify-center gap-12 min-w-[160vw]"
-            initial={{ x: "-50%" }}
-            animate={{ x: "0%" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
+          <div className="flex items-center justify-center gap-12 min-w-[160vw]">
             {/* Left Image */}
-            <motion.div
-              ref={leftRef}
-              style={{ width: "450px", height: "208px" }}
-              animate={{
-                scale: leftInView ? 1 : 0.8,
-                opacity: leftInView ? 1 : 0.8,
-              }}
-              transition={{ duration: 0.3 }}
-            >
+            <div style={{ width: "450px", height: "208px" }}>
               <OptimizedImage
                 src="/4.webp"
                 alt="Wedding photo 1"
@@ -117,24 +103,16 @@ const WeddingHero = () => {
                 priority={true}
                 sizes="(max-width: 768px) 450px, 450px"
               />
-            </motion.div>
+            </div>
 
             {/* Center Image with Date */}
-            <motion.div
+            <div
               style={{ width: "700px", height: "384px" }}
               className="relative z-10"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <motion.span
-                className="absolute top-4 -left-5 -translate-x-1/2 font-cinzel text-5xl xs:text-4xl sm:text-5xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20 w-full"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
+              <span className="absolute top-4 -left-5 -translate-x-1/2 font-cinzel text-5xl xs:text-4xl sm:text-5xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20 w-full">
                 13&bull;07&bull;2025
-              </motion.span>
+              </span>
               <OptimizedImage
                 src="/main.webp"
                 alt="Couple portrait"
@@ -142,18 +120,10 @@ const WeddingHero = () => {
                 priority={true}
                 sizes="(max-width: 768px) 700px, 700px"
               />
-            </motion.div>
+            </div>
 
             {/* Right Image */}
-            <motion.div
-              ref={rightRef}
-              style={{ width: "450px", height: "208px" }}
-              animate={{
-                scale: rightInView ? 1 : 0.8,
-                opacity: rightInView ? 1 : 0.8,
-              }}
-              transition={{ duration: 0.3 }}
-            >
+            <div style={{ width: "450px", height: "208px" }}>
               <OptimizedImage
                 src="/5.webp"
                 alt="Wedding photo 2"
@@ -161,29 +131,22 @@ const WeddingHero = () => {
                 priority={true}
                 sizes="(max-width: 768px) 450px, 450px"
               />
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Subtitle */}
-        <motion.div
-          className="text-center px-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
+        <div className="text-center px-4">
           <p className="font-sans text-sm tracking-widest leading-relaxed text-black">
             JOIN US AS WE EMBARK ON A JOURNEY OF LOVE, JOY, AND ETERNAL
             HAPPINESS.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-colors"
           >
             RSVP Now
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </div>
   );

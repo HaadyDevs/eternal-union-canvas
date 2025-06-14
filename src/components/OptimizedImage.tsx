@@ -36,7 +36,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: '50px' }
+      { rootMargin: '100px' } // Increased for better mobile performance
     );
 
     if (imgRef.current) {
@@ -58,9 +58,10 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
-      {/* Loading placeholder */}
+      {/* Loading placeholder with better mobile performance */}
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-gray-200 animate-pulse" 
+             style={{ willChange: 'opacity' }} />
       )}
       
       {/* Error fallback */}
@@ -70,19 +71,21 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         </div>
       )}
 
-      {/* Actual image */}
+      {/* Actual image with optimized loading */}
       {isInView && (
         <img
           src={src}
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
+          fetchpriority={priority ? "high" : "auto"}
           onLoad={handleLoad}
           onError={handleError}
           className={cn(
             "w-full h-full object-cover transition-opacity duration-300",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
+          style={{ willChange: 'opacity' }}
         />
       )}
     </div>
