@@ -1,4 +1,6 @@
+
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import OptimizedImage from "./OptimizedImage";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
@@ -178,9 +180,11 @@ const WeddingHero = () => {
           <br />
           LOVE, JOY, AND ETERNAL HAPPINESS.
         </p>
-        <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg animate-gentle-bounce">
-          RSVP Now
-        </button>
+        <Link to="/rsvp">
+          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg animate-gentle-bounce">
+            RSVP Now
+          </button>
+        </Link>
       </div>
 
       {/* Mobile/Tablet Layout with Scroll-based Scaling */}
@@ -260,9 +264,11 @@ const WeddingHero = () => {
             JOIN US AS WE EMBARK ON A JOURNEY OF LOVE, JOY, AND ETERNAL
             HAPPINESS.
           </p>
-          <button className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
-            RSVP Now
-          </button>
+          <Link to="/rsvp">
+            <button className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              RSVP Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

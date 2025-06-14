@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -59,16 +61,20 @@ const WeddingNavigation = () => {
 
           {/* Desktop Couple Name - Centered */}
           <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
-            <h1 className="font-cinzel text-5xl font-bold tracking-wide">
-              Haady & Nizra
-            </h1>
+            <Link to="/">
+              <h1 className="font-cinzel text-5xl font-bold tracking-wide hover:opacity-70 transition-opacity">
+                Haady & Nizra
+              </h1>
+            </Link>
           </div>
 
           {/* Mobile Navigation - Only Show Name and Menu Button */}
           <div className="md:hidden flex items-center justify-between w-full">
-            <h1 className="font-cinzel text-3xl font-bold tracking-wide">
-              Haady & Nizra
-            </h1>
+            <Link to="/">
+              <h1 className="font-cinzel text-3xl font-bold tracking-wide">
+                Haady & Nizra
+              </h1>
+            </Link>
 
             <button className="p-2" onClick={() => setIsOpen(!isOpen)}>
               <div
@@ -83,9 +89,11 @@ const WeddingNavigation = () => {
 
           {/* Desktop Right Side Buttons */}
           <div className="hidden md:flex space-x-4">
-            <button className="font-cinzel text-sm px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors">
-              RSVP
-            </button>
+            <Link to="/rsvp">
+              <button className="font-cinzel text-sm px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors">
+                RSVP
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -155,14 +163,15 @@ const WeddingNavigation = () => {
                 >
                   FAQ
                 </motion.button>
-                <motion.button
-                  className="font-cinzel text-2xl px-6 py-3 border border-black hover:bg-black hover:text-white transition-colors"
-                  onClick={() => setIsOpen(false)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  RSVP
-                </motion.button>
+                <Link to="/rsvp" onClick={() => setIsOpen(false)}>
+                  <motion.button
+                    className="font-cinzel text-2xl px-6 py-3 border border-black hover:bg-black hover:text-white transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    RSVP
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </motion.div>
