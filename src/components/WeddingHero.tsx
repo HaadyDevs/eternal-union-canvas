@@ -18,11 +18,11 @@ const WeddingHero = () => {
 
   // Center the carousel on initial load
   useEffect(() => {
-    if (carouselRef.current) {
+    if (carouselRef.current && window.innerWidth < 1024) {
       const carousel = carouselRef.current;
-      const scrollWidth = carousel.scrollWidth;
-      const clientWidth = carousel.clientWidth;
-      const centerPosition = (scrollWidth - clientWidth) / 2;
+      const viewportWidth = window.innerWidth;
+      // Position to center the main image: padding + left image + gap + half of center image
+      const centerPosition = viewportWidth + 450 + 48 + (700 / 2) - (viewportWidth / 2);
       carousel.scrollLeft = centerPosition;
     }
   }, []);
@@ -158,19 +158,16 @@ const WeddingHero = () => {
           ref={carouselRef}
           className="relative w-full overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <div 
-            className="flex items-center justify-start gap-12"
-            style={{ 
-              minWidth: '300vw', // Increased width for more scroll space
-              paddingLeft: '100vw', // Full viewport width padding on left
-              paddingRight: '100vw' // Full viewport width padding on right
-            }}
-          >
+          <div className="flex items-center justify-start gap-12">
+            {/* Left Padding Spacer */}
+            <div style={{ width: '100vw', flexShrink: 0 }} />
+            
             {/* Left Image with Dynamic Scaling */}
             <div 
               style={{ 
                 width: "450px", 
                 height: "208px",
+                flexShrink: 0,
                 transform: `scale(${getSideImageScale(0)})`,
                 transition: 'transform 0.3s ease-out',
                 transformOrigin: 'center'
@@ -189,7 +186,8 @@ const WeddingHero = () => {
             <div
               style={{ 
                 width: "700px", 
-                height: "384px"
+                height: "384px",
+                flexShrink: 0
               }}
               className="relative z-10"
             >
@@ -210,6 +208,7 @@ const WeddingHero = () => {
               style={{ 
                 width: "450px", 
                 height: "208px",
+                flexShrink: 0,
                 transform: `scale(${getSideImageScale(2)})`,
                 transition: 'transform 0.3s ease-out',
                 transformOrigin: 'center'
@@ -223,6 +222,9 @@ const WeddingHero = () => {
                 sizes="(max-width: 768px) 450px, 450px"
               />
             </div>
+            
+            {/* Right Padding Spacer */}
+            <div style={{ width: '100vw', flexShrink: 0 }} />
           </div>
         </div>
 
