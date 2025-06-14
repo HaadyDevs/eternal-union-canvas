@@ -1,5 +1,8 @@
+
 import React, { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import OptimizedImage from "./OptimizedImage";
+import { useImagePreloader } from "../hooks/useImagePreloader";
 
 const WeddingHero = () => {
   const leftRef = React.useRef(null);
@@ -7,6 +10,12 @@ const WeddingHero = () => {
   const containerRef = useRef(null);
   const leftInView = useInView(leftRef, { once: false, amount: 0.8 });
   const rightInView = useInView(rightRef, { once: false, amount: 0.8 });
+
+  // Preload critical hero images
+  useImagePreloader({
+    images: ["/main.webp", "/4.webp", "/5.webp"],
+    priority: true
+  });
 
   useEffect(() => {
     if (containerRef.current) {
@@ -31,30 +40,37 @@ const WeddingHero = () => {
         <div className="grid grid-cols-3 items-center relative z-10 w-full">
           {/* Left Photo */}
           <div className="flex justify-end mr-44">
-            <img
+            <OptimizedImage
               src="/4.webp"
               alt="Wedding photo 1"
-              className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
+              className="w-[340px] h-[450px] grayscale shadow-lg"
+              priority={true}
+              sizes="340px"
             />
           </div>
           {/* Center Photo */}
           <div className="flex flex-col items-center justify-center">
-            <img
+            <OptimizedImage
               src="/3.webp"
               alt="Couple portrait"
-              className="w-[500px] h-[700px] object-cover grayscale shadow-lg"
+              className="w-[500px] h-[700px] grayscale shadow-lg"
+              priority={true}
+              sizes="500px"
             />
           </div>
           {/* Right Photo */}
           <div className="flex justify-start ml-44">
-            <img
+            <OptimizedImage
               src="/5.webp"
               alt="Wedding photo 2"
-              className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
+              className="w-[340px] h-[450px] grayscale shadow-lg"
+              priority={true}
+              sizes="340px"
             />
           </div>
         </div>
       </div>
+      
       {/* Subtitle */}
       <div className="hidden lg:block text-center mt-12">
         <p className="font-sans text-lg tracking-widest leading-relaxed text-black">
@@ -94,10 +110,12 @@ const WeddingHero = () => {
               }}
               transition={{ duration: 0.3 }}
             >
-              <img
+              <OptimizedImage
                 src="/4.webp"
                 alt="Wedding photo 1"
-                className="w-full h-full object-cover grayscale"
+                className="w-full h-full grayscale"
+                priority={true}
+                sizes="(max-width: 768px) 450px, 450px"
               />
             </motion.div>
 
@@ -117,10 +135,12 @@ const WeddingHero = () => {
               >
                 13&bull;07&bull;2025
               </motion.span>
-              <img
+              <OptimizedImage
                 src="/main.webp"
                 alt="Couple portrait"
-                className="w-full h-full object-cover grayscale"
+                className="w-full h-full grayscale"
+                priority={true}
+                sizes="(max-width: 768px) 700px, 700px"
               />
             </motion.div>
 
@@ -134,10 +154,12 @@ const WeddingHero = () => {
               }}
               transition={{ duration: 0.3 }}
             >
-              <img
+              <OptimizedImage
                 src="/5.webp"
                 alt="Wedding photo 2"
-                className="w-full h-full object-cover grayscale"
+                className="w-full h-full grayscale"
+                priority={true}
+                sizes="(max-width: 768px) 450px, 450px"
               />
             </motion.div>
           </motion.div>
