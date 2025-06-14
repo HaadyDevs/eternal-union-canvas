@@ -1,6 +1,5 @@
-
-import React, { useState, useRef, useEffect } from 'react';
-import { cn } from '../lib/utils';
+import React, { useState, useRef, useEffect } from "react";
+import { cn } from "../lib/utils";
 
 interface OptimizedImageProps {
   src: string;
@@ -36,7 +35,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: '100px' } // Increased for better mobile performance
+      { rootMargin: "100px" } // Increased for better mobile performance
     );
 
     if (imgRef.current) {
@@ -60,10 +59,12 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
       {/* Loading placeholder with better mobile performance */}
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" 
-             style={{ willChange: 'opacity' }} />
+        <div
+          className="absolute inset-0 bg-gray-200 animate-pulse"
+          style={{ willChange: "opacity" }}
+        />
       )}
-      
+
       {/* Error fallback */}
       {hasError && (
         <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
@@ -78,14 +79,14 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
-          fetchpriority={priority ? "high" : "auto"}
+          fetchPriority={priority ? "high" : "auto"}
           onLoad={handleLoad}
           onError={handleError}
           className={cn(
             "w-full h-full object-cover transition-opacity duration-300",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
-          style={{ willChange: 'opacity' }}
+          style={{ willChange: "opacity" }}
         />
       )}
     </div>
