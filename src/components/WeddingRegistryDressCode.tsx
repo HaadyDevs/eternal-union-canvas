@@ -1,4 +1,6 @@
+
 import React from "react";
+import { Link } from "react-router-dom";
 
 const WeddingRegistryDressCode = () => {
   return (
@@ -40,9 +42,11 @@ const WeddingRegistryDressCode = () => {
             </div>
           </div>
 
-          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors">
-            Contribute to Honeymoon Fund
-          </button>
+          <Link to="/honeymoon-fund">
+            <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors">
+              Contribute to Honeymoon Fund
+            </button>
+          </Link>
         </div>
       </div>
     </section>
