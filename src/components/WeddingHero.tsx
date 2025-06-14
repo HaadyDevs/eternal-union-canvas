@@ -21,8 +21,8 @@ const WeddingHero = () => {
     if (carouselRef.current && window.innerWidth < 1024) {
       const carousel = carouselRef.current;
       const viewportWidth = window.innerWidth;
-      // Position to center the main image: padding + left image + gap + half of center image
-      const centerPosition = viewportWidth + 450 + 48 + (700 / 2) - (viewportWidth / 2);
+      // Calculate center position: left spacer + left image + gap + half of center image - half viewport
+      const centerPosition = viewportWidth + 320 + 48 + (500 / 2) - (viewportWidth / 2);
       carousel.scrollLeft = centerPosition;
     }
   }, []);
@@ -56,9 +56,9 @@ const WeddingHero = () => {
     const containerWidth = carousel.clientWidth;
     const viewportWidth = window.innerWidth;
     
-    // Image dimensions
-    const sideImageWidth = 450;
-    const centerImageWidth = 700;
+    // Updated image dimensions
+    const sideImageWidth = 320;
+    const centerImageWidth = 500;
     const gap = 48;
     const padding = viewportWidth; // Padding on each side
     
@@ -162,11 +162,11 @@ const WeddingHero = () => {
             {/* Left Padding Spacer */}
             <div style={{ width: '100vw', flexShrink: 0 }} />
             
-            {/* Left Image with Dynamic Scaling */}
+            {/* Left Image with Dynamic Scaling - Smaller width, taller height */}
             <div 
               style={{ 
-                width: "450px", 
-                height: "208px",
+                width: "320px", 
+                height: "280px",
                 flexShrink: 0,
                 transform: `scale(${getSideImageScale(0)})`,
                 transition: 'transform 0.3s ease-out',
@@ -178,15 +178,15 @@ const WeddingHero = () => {
                 alt="Wedding photo 1"
                 className="w-full h-full grayscale transition-all duration-300"
                 priority={true}
-                sizes="(max-width: 768px) 450px, 450px"
+                sizes="(max-width: 768px) 320px, 320px"
               />
             </div>
 
-            {/* Center Image - No Scaling, with Date */}
+            {/* Center Image - Smaller width, taller height, with Date */}
             <div
               style={{ 
-                width: "700px", 
-                height: "384px",
+                width: "500px", 
+                height: "450px",
                 flexShrink: 0
               }}
               className="relative z-10"
@@ -199,15 +199,15 @@ const WeddingHero = () => {
                 alt="Couple portrait"
                 className="w-full h-full grayscale transition-all duration-300"
                 priority={true}
-                sizes="(max-width: 768px) 700px, 700px"
+                sizes="(max-width: 768px) 500px, 500px"
               />
             </div>
 
-            {/* Right Image with Dynamic Scaling */}
+            {/* Right Image with Dynamic Scaling - Smaller width, taller height */}
             <div 
               style={{ 
-                width: "450px", 
-                height: "208px",
+                width: "320px", 
+                height: "280px",
                 flexShrink: 0,
                 transform: `scale(${getSideImageScale(2)})`,
                 transition: 'transform 0.3s ease-out',
@@ -219,7 +219,7 @@ const WeddingHero = () => {
                 alt="Wedding photo 2"
                 className="w-full h-full grayscale transition-all duration-300"
                 priority={true}
-                sizes="(max-width: 768px) 450px, 450px"
+                sizes="(max-width: 768px) 320px, 320px"
               />
             </div>
             
