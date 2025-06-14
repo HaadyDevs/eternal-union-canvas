@@ -93,7 +93,7 @@ const WeddingHero = () => {
   return (
     <div 
       ref={heroRef as React.RefObject<HTMLDivElement>}
-      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 overflow-x-hidden ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
     >
       {/* Desktop Layout */}
       <div className="hidden lg:block w-full relative py-16 px-12">
@@ -152,11 +152,11 @@ const WeddingHero = () => {
       </div>
 
       {/* Mobile/Tablet Layout with Scroll-based Scaling */}
-      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24">
+      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24 overflow-x-hidden">
         {/* Carousel Container */}
         <div
           ref={carouselRef}
-          className="relative w-full overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="relative w-screen overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           <div className="flex items-center justify-start gap-12">
             {/* Left Padding Spacer */}

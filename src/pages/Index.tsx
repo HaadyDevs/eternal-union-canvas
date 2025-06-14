@@ -1,3 +1,4 @@
+
 import React, { lazy, Suspense } from "react";
 import WeddingNavigation from "../components/WeddingNavigation";
 import WeddingHero from "../components/WeddingHero";
@@ -56,7 +57,7 @@ const AnimatedSection = ({ children, delay = 0 }: { children: React.ReactNode; d
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white text-black overflow-x-hidden">
       <WeddingNavigation />
       <WeddingHero />
       
