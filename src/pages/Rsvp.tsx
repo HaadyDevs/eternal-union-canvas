@@ -1,38 +1,59 @@
-
 import React from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import RsvpForm from "../components/RsvpForm";
 import OptimizedBackground from "../components/OptimizedBackground";
+import { Link, useNavigate } from "react-router-dom";
 
 const Rsvp = () => {
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
       {/* Navigation Header */}
-      <nav className="w-full pt-8 lg:pt-12 px-4 sm:px-8 relative z-50 bg-white">
-        <div className="w-full flex justify-center items-center">
+      <nav className="w-full py-6 lg:pt-12 px-4 flex justify-between items-center sm:px-8 relative z-50 bg-white">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-black hover:text-gray-600 transition-colors duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <div className="flex-1 flex justify-center items-center">
           <h1 className="font-cinzel text-3xl md:text-5xl font-bold tracking-wide">
             Haady & Nizra
           </h1>
         </div>
+        <div className="w-8"></div> {/* Spacer to balance the back button */}
       </nav>
 
       {/* Hero Section with Background */}
       <OptimizedBackground
-        src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=1920&h=1080&fit=crop"
-        className="min-h-[40vh] lg:min-h-[50vh]"
+        src="https://img.freepik.com/premium-photo/details-wedding-decor-forest-open-air_303941-1191.jpg"
+        className="min-h-[40vh] grayscale lg:min-h-[50vh]"
         overlay={true}
-        overlayOpacity={0.4}
+        overlayOpacity={0.5}
         priority={true}
       >
         <div
           ref={heroRef as React.RefObject<HTMLDivElement>}
-          className={`flex flex-col items-center justify-center h-full py-16 px-4 transition-all duration-1000 ${
+          className={`flex flex-col items-center justify-center min-h-[40vh] lg:min-h-[50vh] w-full transition-all duration-1000 ${
             isVisible ? "animate-fade-in" : "opacity-0"
           }`}
         >
-          <div className="text-center text-white max-w-4xl">
+          <div className="text-center text-white max-w-4xl px-4">
             <h2
               className={`font-cinzel text-4xl md:text-6xl lg:text-7xl font-medium mb-6 tracking-widest transition-all duration-700 delay-200 ${
                 isVisible ? "animate-scale-in" : "opacity-0"
@@ -45,9 +66,7 @@ const Rsvp = () => {
                 isVisible ? "animate-fade-in-up" : "opacity-0"
               }`}
             >
-              WE WOULD BE HONORED BY YOUR PRESENCE
-              <br />
-              AS WE CELEBRATE OUR SPECIAL DAY
+              WE WOULD BE HONORED BY YOUR PRESENCE ON OUR SPECIAL DAY
             </p>
           </div>
         </div>
@@ -66,7 +85,7 @@ const Rsvp = () => {
               We can't wait to celebrate with you!
             </p>
           </div>
-          
+
           <RsvpForm />
         </div>
       </div>
@@ -74,7 +93,7 @@ const Rsvp = () => {
       {/* Wedding Date Reminder */}
       <div className="bg-gray-50 py-16 px-4 text-center">
         <div className="max-w-4xl mx-auto">
-          <p className="font-cinzel text-2xl md:text-3xl font-medium mb-4 tracking-widest">
+          <p className="font-cinzel text-5xl md:text-3xl font-medium mb-4 tracking-widest">
             13•07•2025
           </p>
           <p className="font-sans text-lg tracking-wider text-gray-600">
