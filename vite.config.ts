@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -9,12 +8,11 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    middlewareMode: false,
   },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(
+    Boolean
+  ),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -22,21 +20,26 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     // Enable minification
-    minify: 'terser',
+    minify: "terser",
     // Optimize chunks
     rollupOptions: {
       output: {
         manualChunks: {
           // Split vendor libraries
-          vendor: ['react', 'react-dom'],
+          vendor: ["react", "react-dom"],
           // Split UI libraries
-          ui: ['@radix-ui/react-slot', 'class-variance-authority', 'clsx', 'tailwind-merge'],
+          ui: [
+            "@radix-ui/react-slot",
+            "class-variance-authority",
+            "clsx",
+            "tailwind-merge",
+          ],
           // Split animation libraries
-          animation: ['framer-motion'],
+          animation: ["framer-motion"],
           // Split routing
-          router: ['react-router-dom'],
+          router: ["react-router-dom"],
           // Split query
-          query: ['@tanstack/react-query'],
+          query: ["@tanstack/react-query"],
         },
       },
     },
@@ -45,13 +48,6 @@ export default defineConfig(({ mode }) => ({
     // Optimize CSS
     cssMinify: true,
     // Target modern browsers
-    target: 'es2020',
-  },
-  // Enable compression
-  server: {
-    host: "::",
-    port: 8080,
-    // Enable compression in dev
-    middlewareMode: false,
+    target: "es2020",
   },
 }));
