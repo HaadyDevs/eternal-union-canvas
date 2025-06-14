@@ -16,13 +16,14 @@ const WeddingHero = () => {
     priority: true
   });
 
+  // Center the carousel on initial load
   useEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      const scrollWidth = container.scrollWidth;
-      const clientWidth = container.clientWidth;
-      const scrollLeft = (scrollWidth - clientWidth) / 2;
-      container.scrollLeft = scrollLeft;
+    if (carouselRef.current) {
+      const carousel = carouselRef.current;
+      const scrollWidth = carousel.scrollWidth;
+      const clientWidth = carousel.clientWidth;
+      const centerPosition = (scrollWidth - clientWidth) / 2;
+      carousel.scrollLeft = centerPosition;
     }
   }, []);
 
@@ -41,8 +42,8 @@ const WeddingHero = () => {
     }
   }, []);
 
-  // Calculate scale based on scroll position for mobile
-  const getImageScale = (imageIndex: number) => {
+  // Calculate scale based on scroll position for mobile side images only
+  const getSideImageScale = (imageIndex: number) => {
     if (typeof window === 'undefined' || window.innerWidth >= 1024) return 1;
     
     const carousel = carouselRef.current;
@@ -51,23 +52,35 @@ const WeddingHero = () => {
     const scrollLeft = scrollPosition;
     const containerWidth = carousel.clientWidth;
     const imageWidth = 450; // Width of side images
+    const centerImageWidth = 700; // Width of center image
     const gap = 48; // Gap between images (12 * 4px)
     
+    // Calculate the center position of the viewport
+    const viewportCenter = scrollLeft + containerWidth / 2;
+    
     // Calculate center positions for each image
-    const leftImageCenter = 0;
-    const centerImageCenter = imageWidth + gap;
-    const rightImageCenter = (imageWidth + gap) * 2 + 250; // 250 is additional width for center image
+    const leftImageCenter = imageWidth / 2;
+    const centerImageCenter = imageWidth + gap + centerImageWidth / 2;
+    const rightImageCenter = imageWidth + gap + centerImageWidth + gap + imageWidth / 2;
     
-    const centers = [leftImageCenter, centerImageCenter, rightImageCenter];
-    const currentCenter = scrollLeft + containerWidth / 2;
+    let targetImageCenter;
+    if (imageIndex === 0) {
+      targetImageCenter = leftImageCenter;
+    } else if (imageIndex === 2) {
+      targetImageCenter = rightImageCenter;
+    } else {
+      return 1; // Center image doesn't scale
+    }
     
-    // Calculate distance from current scroll position to image center
-    const distance = Math.abs(currentCenter - centers[imageIndex]);
-    const maxDistance = imageWidth + gap;
+    // Calculate distance from viewport center to image center
+    const distance = Math.abs(viewportCenter - targetImageCenter);
+    const maxDistance = containerWidth / 2 + imageWidth / 2;
     
-    // Scale between 1.0 and 1.1 based on proximity to center
-    const scale = Math.max(1.0, 1.1 - (distance / maxDistance) * 0.1);
-    return Math.min(scale, 1.1);
+    // Scale up when image is closer to center (inverse relationship)
+    const normalizedDistance = Math.min(distance / maxDistance, 1);
+    const scale = 1 + (1 - normalizedDistance) * 0.15; // Scale up to 1.15x when centered
+    
+    return Math.max(1, Math.min(scale, 1.15));
   };
 
   return (
@@ -138,14 +151,15 @@ const WeddingHero = () => {
           ref={carouselRef}
           className="relative w-full overflow-x-auto mb-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <div className="flex items-center justify-center gap-12 min-w-[160vw]">
+          <div className="flex items-center justify-start gap-12 min-w-[160vw]">
             {/* Left Image with Dynamic Scaling */}
             <div 
               style={{ 
                 width: "450px", 
                 height: "208px",
-                transform: `scale(${getImageScale(0)})`,
-                transition: 'transform 0.3s ease-out'
+                transform: `scale(${getSideImageScale(0)})`,
+                transition: 'transform 0.3s ease-out',
+                transformOrigin: 'center'
               }}
             >
               <OptimizedImage
@@ -157,13 +171,11 @@ const WeddingHero = () => {
               />
             </div>
 
-            {/* Center Image with Date */}
+            {/* Center Image - No Scaling, with Date */}
             <div
               style={{ 
                 width: "700px", 
-                height: "384px",
-                transform: `scale(${getImageScale(1)})`,
-                transition: 'transform 0.3s ease-out'
+                height: "384px"
               }}
               className="relative z-10"
             >
@@ -184,8 +196,9 @@ const WeddingHero = () => {
               style={{ 
                 width: "450px", 
                 height: "208px",
-                transform: `scale(${getImageScale(2)})`,
-                transition: 'transform 0.3s ease-out'
+                transform: `scale(${getSideImageScale(2)})`,
+                transition: 'transform 0.3s ease-out',
+                transformOrigin: 'center'
               }}
             >
               <OptimizedImage
