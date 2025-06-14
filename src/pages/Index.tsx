@@ -1,15 +1,44 @@
 
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import WeddingNavigation from "../components/WeddingNavigation";
 import WeddingHero from "../components/WeddingHero";
-import LazyComponent from "../components/LazyComponent";
 
-// Lazy load heavy components
-const WeddingSchedule = lazy(() => import("../components/WeddingSchedule"));
-const WeddingLocation = lazy(() => import("../components/WeddingLocation"));
-const WeddingCountdown = lazy(() => import("../components/WeddingCountdown"));
-const WeddingRegistryDressCode = lazy(() => import("../components/WeddingRegistryDressCode"));
-const WeddingFooter = lazy(() => import("../components/WeddingFooter"));
+// Lazy load components with error boundaries
+const WeddingSchedule = lazy(() => 
+  import("../components/WeddingSchedule").catch(() => ({
+    default: () => <div className="w-full py-16 text-center">Schedule content unavailable</div>
+  }))
+);
+
+const WeddingLocation = lazy(() => 
+  import("../components/WeddingLocation").catch(() => ({
+    default: () => <div className="w-full py-16 text-center">Location content unavailable</div>
+  }))
+);
+
+const WeddingCountdown = lazy(() => 
+  import("../components/WeddingCountdown").catch(() => ({
+    default: () => <div className="w-full py-16 text-center">Countdown content unavailable</div>
+  }))
+);
+
+const WeddingRegistryDressCode = lazy(() => 
+  import("../components/WeddingRegistryDressCode").catch(() => ({
+    default: () => <div className="w-full py-16 text-center">Registry content unavailable</div>
+  }))
+);
+
+const WeddingFooter = lazy(() => 
+  import("../components/WeddingFooter").catch(() => ({
+    default: () => <div className="w-full py-16 text-center">Footer content unavailable</div>
+  }))
+);
+
+const LoadingFallback = () => (
+  <div className="w-full py-16 flex justify-center items-center">
+    <div className="animate-pulse bg-gray-200 rounded w-32 h-8"></div>
+  </div>
+);
 
 const Index = () => {
   return (
@@ -17,25 +46,25 @@ const Index = () => {
       <WeddingNavigation />
       <WeddingHero />
       
-      <LazyComponent>
+      <Suspense fallback={<LoadingFallback />}>
         <WeddingSchedule />
-      </LazyComponent>
+      </Suspense>
       
-      <LazyComponent>
+      <Suspense fallback={<LoadingFallback />}>
         <WeddingLocation />
-      </LazyComponent>
+      </Suspense>
       
-      <LazyComponent>
+      <Suspense fallback={<LoadingFallback />}>
         <WeddingCountdown />
-      </LazyComponent>
+      </Suspense>
       
-      <LazyComponent>
+      <Suspense fallback={<LoadingFallback />}>
         <WeddingRegistryDressCode />
-      </LazyComponent>
+      </Suspense>
       
-      <LazyComponent>
+      <Suspense fallback={<LoadingFallback />}>
         <WeddingFooter />
-      </LazyComponent>
+      </Suspense>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "../lib/utils";
 
@@ -35,7 +36,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: "100px" } // Increased for better mobile performance
+      { rootMargin: "100px" }
     );
 
     if (imgRef.current) {
@@ -57,7 +58,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
-      {/* Loading placeholder with better mobile performance */}
+      {/* Loading placeholder */}
       {!isLoaded && !hasError && (
         <div
           className="absolute inset-0 bg-gray-200 animate-pulse"
@@ -79,7 +80,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
-          fetchPriority={priority ? "high" : "auto"}
           onLoad={handleLoad}
           onError={handleError}
           className={cn(
