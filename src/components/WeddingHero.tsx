@@ -1,140 +1,167 @@
-
-import React from 'react';
+import React, { useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const WeddingHero = () => {
+  const leftRef = React.useRef(null);
+  const rightRef = React.useRef(null);
+  const containerRef = useRef(null);
+  const leftInView = useInView(leftRef, { once: false, amount: 0.8 });
+  const rightInView = useInView(rightRef, { once: false, amount: 0.8 });
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+      const scrollLeft = (scrollWidth - clientWidth) / 2;
+      container.scrollLeft = scrollLeft;
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8">
-        
-        {/* Desktop Layout */}
-        <div className="hidden lg:block w-full max-w-6xl">
-          <div className="grid grid-cols-3 items-center gap-8">
-            {/* Left Photo */}
-            <div className="flex justify-end">
-              <div className="w-48 h-48 bg-gray-200 border">
-                <img 
-                  src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=400&h=400" 
-                  alt="Wedding photo 1"
-                  className="w-full h-full object-cover grayscale"
-                />
-              </div>
-            </div>
-
-            {/* Center Content */}
-            <div className="text-center">
-              {/* Wedding Date */}
-              <div className="mb-8">
-                <h2 className="font-cinzel text-5xl xl:text-6xl font-medium tracking-[0.3em]">
-                  14 • 07 • 2024
-                </h2>
-              </div>
-              
-              {/* Main Portrait Photo */}
-              <div className="w-64 h-80 mx-auto bg-gray-200 border mb-8">
-                <img 
-                  src="https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=500" 
-                  alt="Couple portrait"
-                  className="w-full h-full object-cover grayscale"
-                />
-              </div>
-            </div>
-
-            {/* Right Photo */}
-            <div className="flex justify-start">
-              <div className="w-48 h-48 bg-gray-200 border">
-                <img 
-                  src="https://images.unsplash.com/photo-1452960962994-acf4fd70b632?auto=format&fit=crop&w=400&h=400" 
-                  alt="Wedding photo 2"
-                  className="w-full h-full object-cover grayscale"
-                />
-              </div>
-            </div>
+    <div className="flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center">
+      {/* Desktop Layout */}
+      <div className="hidden lg:block w-full relative py-16 px-12">
+        {/* Date Overlay - Centered over the grid, always one line */}
+        <div className="absolute top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full flex justify-center pointer-events-none">
+          <span className="font-cinzel text-[5vw] xl:text-[110px] font-medium text-black tracking-widest select-none whitespace-nowrap px-12 rounded">
+            13&bull;07&bull;2025
+          </span>
+        </div>
+        <div className="grid grid-cols-3 items-center relative z-10 w-full">
+          {/* Left Photo */}
+          <div className="flex justify-end mr-44">
+            <img
+              src="/4.png"
+              alt="Wedding photo 1"
+              className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
+            />
+          </div>
+          {/* Center Photo */}
+          <div className="flex flex-col items-center justify-center">
+            <img
+              src="/main.jpg"
+              alt="Couple portrait"
+              className="w-[500px] h-[700px] object-cover grayscale shadow-lg"
+            />
+          </div>
+          {/* Right Photo */}
+          <div className="flex justify-start ml-44">
+            <img
+              src="/5.png"
+              alt="Wedding photo 2"
+              className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
+            />
           </div>
         </div>
+      </div>
+      {/* Subtitle */}
+      <div className="hidden lg:block text-center mt-12">
+        <p className="font-sans text-lg tracking-widest leading-relaxed text-black">
+          JOIN US AS WE EMBARK ON A JOURNEY OF
+          <br />
+          LOVE, JOY, AND ETERNAL HAPPINESS.
+        </p>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors"
+        >
+          RSVP Now
+        </motion.button>
+      </div>
 
-        {/* Tablet Layout */}
-        <div className="hidden md:block lg:hidden w-full max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="font-cinzel text-4xl font-medium tracking-[0.25em] mb-8">
-              14 • 07 • 2024
-            </h2>
-          </div>
-          
-          <div className="flex justify-center items-start gap-6 mb-8">
-            {/* Left Photo */}
-            <div className="w-32 h-32 bg-gray-200 border mt-16">
-              <img 
-                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=300&h=300" 
+      {/* Mobile/Tablet Layout */}
+      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24">
+        {/* Carousel Container */}
+        <div
+          ref={containerRef}
+          className="relative w-full overflow-x-auto mb-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
+          <motion.div
+            className="flex items-center justify-center gap-12 min-w-[160vw]"
+            initial={{ x: "-50%" }}
+            animate={{ x: "0%" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {/* Left Image */}
+            <motion.div
+              ref={leftRef}
+              style={{ width: "450px", height: "208px" }}
+              animate={{
+                scale: leftInView ? 1 : 0.8,
+                opacity: leftInView ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src="/4.png"
                 alt="Wedding photo 1"
                 className="w-full h-full object-cover grayscale"
               />
-            </div>
+            </motion.div>
 
-            {/* Main Portrait Photo */}
-            <div className="w-48 h-60 bg-gray-200 border">
-              <img 
-                src="https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=300&h=375" 
+            {/* Center Image with Date */}
+            <motion.div
+              style={{ width: "700px", height: "384px" }}
+              className="relative z-10"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <motion.span
+                className="absolute top-4 -left-5 -translate-x-1/2 font-cinzel text-5xl xs:text-4xl sm:text-5xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20 w-full"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                13&bull;07&bull;2025
+              </motion.span>
+              <img
+                src="/main.jpg"
                 alt="Couple portrait"
                 className="w-full h-full object-cover grayscale"
               />
-            </div>
+            </motion.div>
 
-            {/* Right Photo */}
-            <div className="w-32 h-32 bg-gray-200 border mt-16">
-              <img 
-                src="https://images.unsplash.com/photo-1452960962994-acf4fd70b632?auto=format&fit=crop&w=300&h=300" 
+            {/* Right Image */}
+            <motion.div
+              ref={rightRef}
+              style={{ width: "450px", height: "208px" }}
+              animate={{
+                scale: rightInView ? 1 : 0.8,
+                opacity: rightInView ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src="/5.png"
                 alt="Wedding photo 2"
                 className="w-full h-full object-cover grayscale"
               />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="md:hidden w-full max-w-sm">
-          <div className="text-center mb-6">
-            <h2 className="font-cinzel text-2xl font-medium tracking-[0.2em] mb-6">
-              14 • 07 • 2024
-            </h2>
-          </div>
-          
-          <div className="space-y-4">
-            {/* Main Portrait Photo */}
-            <div className="w-full aspect-[3/4] bg-gray-200 border">
-              <img 
-                src="https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=400&h=533" 
-                alt="Couple portrait"
-                className="w-full h-full object-cover grayscale"
-              />
-            </div>
-
-            {/* Side Photos */}
-            <div className="flex gap-4 justify-center">
-              <div className="w-24 h-24 bg-gray-200 border">
-                <img 
-                  src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=200&h=200" 
-                  alt="Wedding photo 1"
-                  className="w-full h-full object-cover grayscale"
-                />
-              </div>
-              <div className="w-24 h-24 bg-gray-200 border">
-                <img 
-                  src="https://images.unsplash.com/photo-1452960962994-acf4fd70b632?auto=format&fit=crop&w=200&h=200" 
-                  alt="Wedding photo 2"
-                  className="w-full h-full object-cover grayscale"
-                />
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Subtitle */}
-        <div className="text-center mt-8 sm:mt-12 max-w-2xl">
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-widest leading-relaxed">
-            Join us as we embark on a journey of love, joy, and eternal happiness.
+        <motion.div
+          className="text-center px-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <p className="font-sans text-sm tracking-widest leading-relaxed text-black">
+            JOIN US AS WE EMBARK ON A JOURNEY OF LOVE, JOY, AND ETERNAL
+            HAPPINESS.
           </p>
-        </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-colors"
+          >
+            RSVP Now
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   );

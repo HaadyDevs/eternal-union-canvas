@@ -1,43 +1,48 @@
-
-import React from 'react';
+import React from "react";
 
 const WeddingRegistryDressCode = () => {
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24 max-w-6xl mx-auto px-4">
+    <section id="registry" className="py-24 md:py-32 bg-white">
+      <div className="flex flex-col md:flex-row justify-center items-start gap-12 md:gap-24 w-full max-w-[2000px] mx-auto px-4">
         {/* Registry Section */}
-        <div className="flex-1 max-w-xs text-center mx-auto">
-          <h3 className="text-2xl md:text-3xl font-cinzel font-bold text-black mb-4 uppercase">
-            REGISTRY
-          </h3>
-          <img 
-            src="https://images.unsplash.com/photo-1527576539890-dfa815648363?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-            alt="Registry" 
-            className="w-full h-auto object-cover mb-4 grayscale rounded"
-          />
-          <p className="text-sm leading-relaxed text-gray-700 mb-4">
-            While your presence at our wedding is the greatest gift, if you wish to share in our joy through a gift, please visit our registry.
-          </p>
-          <button className="bg-black text-white px-4 py-2 text-xs tracking-widest uppercase hover:bg-gray-800 transition-colors">
-            Registry
-          </button>
-        </div>
+        <div className="flex-1 w-full text-center mx-auto relative">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full mx-auto mb-6 md:mb-16 relative">
+            {/* Left Text */}
+            <div className="text-center md:text-right mb-4 md:mb-0 md:w-1/4 md:pr-24 order-2 md:order-1 relative z-20">
+              <p className="font-sans text-sm md:text-lg uppercase tracking-wider text-black text-center">
+                Your presence on our special day is the biggest gift we could
+                ask for — truly, no gifts are necessary! But for those
+                wonderfully stubborn ones ;) who still insist, you can
+                contribute to our Honeymoon Fund and help us make unforgettable
+                memories.
+              </p>
+            </div>
 
-        {/* Dress Code Section */}
-        <div className="flex-1 max-w-xs text-center mx-auto">
-          <h3 className="text-2xl md:text-3xl font-cinzel font-bold text-black mb-4 uppercase">
-            DRESS CODE
-          </h3>
-          <img 
-            src="https://images.unsplash.com/photo-1485833077593-4278bba3f11f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-            alt="Dress Code" 
-            className="w-full h-auto object-cover mb-4 grayscale rounded"
-          />
-          <p className="text-sm leading-relaxed text-gray-700 mb-4">
-            We request cocktail attire for our celebration. Think elegant and refined, with darker colors preferred to complement our venue's atmosphere.
-          </p>
-          <button className="bg-black text-white px-4 py-2 text-xs tracking-widest uppercase hover:bg-gray-800 transition-colors">
-            Details
+            {/* Center Image */}
+            <div className="md:w-2/5 flex justify-center mb-8 md:mb-0 order-1 md:order-2 relative z-10">
+              <div className="relative">
+                <h3 className="text-5xl md:text-7xl font-cinzel font-bold text-black absolute -top-5 left-1/2 transform -translate-x-1/2 z-20 uppercase">
+                  GIFTS
+                </h3>
+                <img
+                  src="https://emmalinebride.com/wp-content/uploads/2022/05/origami-wedding-card-for-money-gift.webp"
+                  alt="Registry"
+                  className="w-72 md:w-[1000px] object-cover grayscale rounded"
+                />
+              </div>
+            </div>
+
+            {/* Right Text */}
+            <div className="text-center md:text-left md:w-1/4 md:pl-24 order-3 md:order-3 relative z-20">
+              <p className="font-sans text-sm md:text-lg uppercase tracking-wider text-black text-center">
+                If however it's just a gift you find, please be assured we will
+                not mind!
+              </p>
+            </div>
+          </div>
+
+          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-colors">
+            Contribute to Honeymoon Fund
           </button>
         </div>
       </div>
