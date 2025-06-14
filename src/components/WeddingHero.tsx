@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import OptimizedImage from "./OptimizedImage";
 import { useImagePreloader } from "../hooks/useImagePreloader";
@@ -13,7 +12,7 @@ const WeddingHero = () => {
   // Preload critical hero images
   useImagePreloader({
     images: ["/main.webp", "/4.webp", "/5.webp"],
-    priority: true
+    priority: true,
   });
 
   // Center the carousel on initial load
@@ -21,8 +20,19 @@ const WeddingHero = () => {
     if (carouselRef.current && window.innerWidth < 1024) {
       const carousel = carouselRef.current;
       const viewportWidth = window.innerWidth;
-      // Calculate center position: left spacer + left image + gap + half of center image - half viewport
-      const centerPosition = viewportWidth + 320 + 48 + (500 / 2) - (viewportWidth / 2);
+      const sideImageWidth = 240;
+      const centerImageWidth = 280;
+      const gap = 48;
+      const sidePadding = viewportWidth * 0.15; // 15vw padding on each side
+
+      // Calculate the position that will center the middle image
+      // We want the middle image to be centered in the viewport
+      const centerPosition =
+        sidePadding +
+        sideImageWidth +
+        gap -
+        (viewportWidth - centerImageWidth) / 2;
+
       carousel.scrollLeft = centerPosition;
     }
   }, []);
@@ -37,75 +47,87 @@ const WeddingHero = () => {
 
     const carousel = carouselRef.current;
     if (carousel) {
-      carousel.addEventListener('scroll', handleScroll);
-      return () => carousel.removeEventListener('scroll', handleScroll);
+      carousel.addEventListener("scroll", handleScroll);
+      return () => carousel.removeEventListener("scroll", handleScroll);
     }
   }, []);
 
   // Calculate scale based on scroll position for mobile side images only
   const getSideImageScale = (imageIndex: number) => {
-    if (typeof window === 'undefined' || window.innerWidth >= 1024) return 1;
-    
+    if (typeof window === "undefined" || window.innerWidth >= 1024) return 1;
+
     const carousel = carouselRef.current;
     if (!carousel) return 1;
-    
+
     // Don't scale the center image (index 1)
     if (imageIndex === 1) return 1;
-    
+
     const scrollLeft = scrollPosition;
     const containerWidth = carousel.clientWidth;
     const viewportWidth = window.innerWidth;
-    
-    // Updated image dimensions
-    const sideImageWidth = 320;
-    const centerImageWidth = 500;
+
+    // Image dimensions
+    const sideImageWidth = 240;
+    const centerImageWidth = 280;
     const gap = 48;
-    const padding = viewportWidth; // Padding on each side
-    
-    // Calculate the center position of the viewport
+
+    // Calculate the position of each image
+    const leftImagePosition = 0;
+    const centerImagePosition = sideImageWidth + gap;
+    const rightImagePosition = sideImageWidth + gap + centerImageWidth + gap;
+
+    // Calculate the viewport center
     const viewportCenter = scrollLeft + containerWidth / 2;
-    
-    // Calculate center positions for each image (accounting for padding)
-    const leftImageCenter = padding + sideImageWidth / 2;
-    const centerImageCenter = padding + sideImageWidth + gap + centerImageWidth / 2;
-    const rightImageCenter = padding + sideImageWidth + gap + centerImageWidth + gap + sideImageWidth / 2;
-    
-    let targetImageCenter;
+
+    // Determine which image to scale
+    let targetPosition;
     if (imageIndex === 0) {
-      targetImageCenter = leftImageCenter;
+      targetPosition = leftImagePosition;
     } else if (imageIndex === 2) {
-      targetImageCenter = rightImageCenter;
+      targetPosition = rightImagePosition;
     } else {
       return 1;
     }
-    
+
     // Calculate distance from viewport center to image center
-    const distance = Math.abs(viewportCenter - targetImageCenter);
-    const maxDistance = sideImageWidth; // Maximum distance for full scaling effect
-    
+    const distance = Math.abs(
+      viewportCenter - (targetPosition + sideImageWidth / 2)
+    );
+    const maxDistance = sideImageWidth * 1.5; // Increased range for smoother scaling
+
     // Scale up when image is closer to center (inverse relationship)
     const normalizedDistance = Math.min(distance / maxDistance, 1);
-    const scale = 1 + (1 - normalizedDistance) * 0.15; // Scale up to 1.15x when centered
-    
-    return Math.max(1, Math.min(scale, 1.15));
+    const scale = 1 + (1 - normalizedDistance) * 0.2; // Increased scale factor for more noticeable effect
+
+    return Math.max(1, Math.min(scale, 1.2));
   };
 
   return (
-    <div 
+    <div
       ref={heroRef as React.RefObject<HTMLDivElement>}
-      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 overflow-x-hidden ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 overflow-x-hidden ${
+        isVisible ? "animate-fade-in" : "opacity-0"
+      }`}
     >
       {/* Desktop Layout */}
       <div className="hidden lg:block w-full relative py-16 px-12">
         {/* Date Overlay - Centered over the grid, always one line */}
-        <div className={`absolute top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full flex justify-center pointer-events-none transition-all duration-1000 delay-300 ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}>
+        <div
+          className={`absolute top-44 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full flex justify-center pointer-events-none transition-all duration-1000 delay-300 ${
+            isVisible ? "animate-scale-in" : "opacity-0"
+          }`}
+        >
           <span className="font-cinzel text-[5vw] xl:text-[110px] font-medium text-black tracking-widest select-none whitespace-nowrap px-12 rounded">
             13&bull;07&bull;2025
           </span>
         </div>
         <div className="grid grid-cols-3 items-center relative z-10 w-full">
           {/* Left Photo */}
-          <div className={`flex justify-end mr-44 transition-all duration-700 delay-100 ${isVisible ? 'animate-slide-in-left' : 'opacity-0'}`}>
+          <div
+            className={`flex justify-end mr-44 transition-all duration-700 delay-100 ${
+              isVisible ? "animate-slide-in-left" : "opacity-0"
+            }`}
+          >
             <OptimizedImage
               src="/4.webp"
               alt="Wedding photo 1"
@@ -115,7 +137,11 @@ const WeddingHero = () => {
             />
           </div>
           {/* Center Photo */}
-          <div className={`flex flex-col items-center justify-center transition-all duration-700 delay-200 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+          <div
+            className={`flex flex-col items-center justify-center transition-all duration-700 delay-200 ${
+              isVisible ? "animate-fade-in-up" : "opacity-0"
+            }`}
+          >
             <OptimizedImage
               src="/3.webp"
               alt="Couple portrait"
@@ -125,7 +151,11 @@ const WeddingHero = () => {
             />
           </div>
           {/* Right Photo */}
-          <div className={`flex justify-start ml-44 transition-all duration-700 delay-100 ${isVisible ? 'animate-slide-in-right' : 'opacity-0'}`}>
+          <div
+            className={`flex justify-start ml-44 transition-all duration-700 delay-100 ${
+              isVisible ? "animate-slide-in-right" : "opacity-0"
+            }`}
+          >
             <OptimizedImage
               src="/5.webp"
               alt="Wedding photo 2"
@@ -136,17 +166,19 @@ const WeddingHero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Subtitle */}
-      <div className={`hidden lg:block text-center mt-12 transition-all duration-700 delay-500 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+      <div
+        className={`hidden lg:block text-center mt-12 transition-all duration-700 delay-500 ${
+          isVisible ? "animate-fade-in-up" : "opacity-0"
+        }`}
+      >
         <p className="font-sans text-lg tracking-widest leading-relaxed text-black">
           JOIN US AS WE EMBARK ON A JOURNEY OF
           <br />
           LOVE, JOY, AND ETERNAL HAPPINESS.
         </p>
-        <button
-          className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg animate-gentle-bounce"
-        >
+        <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg animate-gentle-bounce">
           RSVP Now
         </button>
       </div>
@@ -156,21 +188,18 @@ const WeddingHero = () => {
         {/* Carousel Container */}
         <div
           ref={carouselRef}
-          className="relative w-screen overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="relative w-screen items-center overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <div className="flex items-center justify-start gap-12">
-            {/* Left Padding Spacer */}
-            <div style={{ width: '100vw', flexShrink: 0 }} />
-            
+          <div className="flex items-center gap-12 min-w-max px-[15vw]">
             {/* Left Image with Dynamic Scaling - Smaller width, taller height */}
-            <div 
-              style={{ 
-                width: "320px", 
-                height: "280px",
+            <div
+              style={{
+                width: "240px",
+                height: "240px",
                 flexShrink: 0,
                 transform: `scale(${getSideImageScale(0)})`,
-                transition: 'transform 0.3s ease-out',
-                transformOrigin: 'center'
+                transition: "transform 0.3s ease-out",
+                transformOrigin: "center",
               }}
             >
               <OptimizedImage
@@ -178,20 +207,20 @@ const WeddingHero = () => {
                 alt="Wedding photo 1"
                 className="w-full h-full grayscale transition-all duration-300"
                 priority={true}
-                sizes="(max-width: 768px) 320px, 320px"
+                sizes="(max-width: 768px) 240px, 240px"
               />
             </div>
 
             {/* Center Image - Smaller width, taller height, with Date */}
             <div
-              style={{ 
-                width: "500px", 
+              style={{
+                width: "280px",
                 height: "450px",
-                flexShrink: 0
+                flexShrink: 0,
               }}
               className="relative z-10"
             >
-              <span className="absolute top-4 -left-5 -translate-x-1/2 font-cinzel text-5xl xs:text-4xl sm:text-5xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20 w-full">
+              <span className="absolute top-4 left-1/2 -translate-x-1/2 font-cinzel text-6xl xs:text-5xl sm:text-6xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20">
                 13&bull;07&bull;2025
               </span>
               <OptimizedImage
@@ -204,14 +233,14 @@ const WeddingHero = () => {
             </div>
 
             {/* Right Image with Dynamic Scaling - Smaller width, taller height */}
-            <div 
-              style={{ 
-                width: "320px", 
-                height: "280px",
+            <div
+              style={{
+                width: "240px",
+                height: "240px",
                 flexShrink: 0,
                 transform: `scale(${getSideImageScale(2)})`,
-                transition: 'transform 0.3s ease-out',
-                transformOrigin: 'center'
+                transition: "transform 0.3s ease-out",
+                transformOrigin: "center",
               }}
             >
               <OptimizedImage
@@ -219,12 +248,9 @@ const WeddingHero = () => {
                 alt="Wedding photo 2"
                 className="w-full h-full grayscale transition-all duration-300"
                 priority={true}
-                sizes="(max-width: 768px) 320px, 320px"
+                sizes="(max-width: 768px) 240px, 240px"
               />
             </div>
-            
-            {/* Right Padding Spacer */}
-            <div style={{ width: '100vw', flexShrink: 0 }} />
           </div>
         </div>
 
@@ -234,9 +260,7 @@ const WeddingHero = () => {
             JOIN US AS WE EMBARK ON A JOURNEY OF LOVE, JOY, AND ETERNAL
             HAPPINESS.
           </p>
-          <button
-            className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          >
+          <button className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
             RSVP Now
           </button>
         </div>
