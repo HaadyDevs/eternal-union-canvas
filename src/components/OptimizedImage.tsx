@@ -58,22 +58,26 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
-      {/* Loading placeholder */}
+      {/* Loading placeholder with subtle animation */}
       {!isLoaded && !hasError && (
         <div
-          className="absolute inset-0 bg-gray-200 animate-pulse"
-          style={{ willChange: "opacity" }}
+          className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"
+          style={{ 
+            willChange: "opacity",
+            backgroundSize: "200% 100%",
+            animation: "pulse 2s ease-in-out infinite alternate"
+          }}
         />
       )}
 
       {/* Error fallback */}
       {hasError && (
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center animate-fade-in">
           <span className="text-gray-400 text-sm">Image not available</span>
         </div>
       )}
 
-      {/* Actual image with optimized loading */}
+      {/* Actual image with optimized loading and smooth entrance */}
       {isInView && (
         <img
           src={src}
@@ -83,10 +87,10 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           onLoad={handleLoad}
           onError={handleError}
           className={cn(
-            "w-full h-full object-cover transition-opacity duration-300",
-            isLoaded ? "opacity-100" : "opacity-0"
+            "w-full h-full object-cover transition-all duration-500 ease-out",
+            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
           )}
-          style={{ willChange: "opacity" }}
+          style={{ willChange: "opacity, transform" }}
         />
       )}
     </div>
