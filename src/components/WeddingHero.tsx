@@ -32,7 +32,7 @@ const WeddingHero = () => {
           {/* Left Photo */}
           <div className="flex justify-end mr-44">
             <img
-              src="/4.png"
+              src="/4.webp"
               alt="Wedding photo 1"
               className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
             />
@@ -40,7 +40,7 @@ const WeddingHero = () => {
           {/* Center Photo */}
           <div className="flex flex-col items-center justify-center">
             <img
-              src="/main.jpg"
+              src="/3.webp"
               alt="Couple portrait"
               className="w-[500px] h-[700px] object-cover grayscale shadow-lg"
             />
@@ -48,7 +48,7 @@ const WeddingHero = () => {
           {/* Right Photo */}
           <div className="flex justify-start ml-44">
             <img
-              src="/5.png"
+              src="/5.webp"
               alt="Wedding photo 2"
               className="w-[340px] h-[450px] object-cover grayscale shadow-lg"
             />
@@ -95,7 +95,7 @@ const WeddingHero = () => {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/4.png"
+                src="/4.webp"
                 alt="Wedding photo 1"
                 className="w-full h-full object-cover grayscale"
               />
@@ -118,7 +118,7 @@ const WeddingHero = () => {
                 13&bull;07&bull;2025
               </motion.span>
               <img
-                src="/main.jpg"
+                src="/main.webp"
                 alt="Couple portrait"
                 className="w-full h-full object-cover grayscale"
               />
@@ -135,7 +135,7 @@ const WeddingHero = () => {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/5.png"
+                src="/5.webp"
                 alt="Wedding photo 2"
                 className="w-full h-full object-cover grayscale"
               />

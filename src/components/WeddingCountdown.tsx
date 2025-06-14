@@ -40,7 +40,7 @@ const WeddingCountdown = () => {
       {/* Optional background image */}
       <div className="absolute inset-0 opacity-40 z-0">
         <img
-          src="./time.jpg"
+          src="./time.webp"
           alt="Elegant flowers"
           className="w-full h-full object-cover"
         />

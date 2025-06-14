@@ -21,7 +21,7 @@ const WeddingLocation = () => {
           {/* Center Image */}
           <div className="md:w-2/4 flex justify-center mb-8 md:mb-0 order-1 md:order-2 relative z-10">
             <img
-              src="/location.png"
+              src="/location.webp"
               alt="Windsor Castle"
               className="w-64 md:w-96 object-cover opacity-90 grayscale"
             />

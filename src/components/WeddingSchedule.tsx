@@ -61,7 +61,7 @@ const WeddingSchedule = () => {
       id="story"
       className="relative w-full py-20 md:py-32 lg:py-48 bg-cover grayscale bg-center bg-no-repeat"
       style={{
-        backgroundImage: `url('/schedule.JPG')`,
+        backgroundImage: `url('/schedule.webp')`,
       }}
     >
       <div className="absolute inset-0 bg-black/70"></div>
