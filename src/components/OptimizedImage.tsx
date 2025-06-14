@@ -56,14 +56,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     onError?.();
   };
 
-  // Generate responsive image sources
-  const generateSrcSet = (baseSrc: string) => {
-    if (!baseSrc.includes('.webp')) return baseSrc;
-    
-    const baseName = baseSrc.replace('.webp', '');
-    return `${baseName}-400w.webp 400w, ${baseName}-800w.webp 800w, ${baseSrc} 1200w`;
-  };
-
   return (
     <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
       {/* Loading placeholder */}
@@ -82,8 +74,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       {isInView && (
         <img
           src={src}
-          srcSet={generateSrcSet(src)}
-          sizes={sizes}
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
