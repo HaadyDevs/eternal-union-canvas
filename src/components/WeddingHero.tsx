@@ -49,19 +49,26 @@ const WeddingHero = () => {
     const carousel = carouselRef.current;
     if (!carousel) return 1;
     
+    // Don't scale the center image (index 1)
+    if (imageIndex === 1) return 1;
+    
     const scrollLeft = scrollPosition;
     const containerWidth = carousel.clientWidth;
-    const imageWidth = 450; // Width of side images
-    const centerImageWidth = 700; // Width of center image
-    const gap = 48; // Gap between images (12 * 4px)
+    const viewportWidth = window.innerWidth;
+    
+    // Image dimensions
+    const sideImageWidth = 450;
+    const centerImageWidth = 700;
+    const gap = 48;
+    const padding = viewportWidth; // Padding on each side
     
     // Calculate the center position of the viewport
     const viewportCenter = scrollLeft + containerWidth / 2;
     
-    // Calculate center positions for each image
-    const leftImageCenter = imageWidth / 2;
-    const centerImageCenter = imageWidth + gap + centerImageWidth / 2;
-    const rightImageCenter = imageWidth + gap + centerImageWidth + gap + imageWidth / 2;
+    // Calculate center positions for each image (accounting for padding)
+    const leftImageCenter = padding + sideImageWidth / 2;
+    const centerImageCenter = padding + sideImageWidth + gap + centerImageWidth / 2;
+    const rightImageCenter = padding + sideImageWidth + gap + centerImageWidth + gap + sideImageWidth / 2;
     
     let targetImageCenter;
     if (imageIndex === 0) {
@@ -69,12 +76,12 @@ const WeddingHero = () => {
     } else if (imageIndex === 2) {
       targetImageCenter = rightImageCenter;
     } else {
-      return 1; // Center image doesn't scale
+      return 1;
     }
     
     // Calculate distance from viewport center to image center
     const distance = Math.abs(viewportCenter - targetImageCenter);
-    const maxDistance = containerWidth / 2 + imageWidth / 2;
+    const maxDistance = sideImageWidth; // Maximum distance for full scaling effect
     
     // Scale up when image is closer to center (inverse relationship)
     const normalizedDistance = Math.min(distance / maxDistance, 1);
@@ -149,9 +156,16 @@ const WeddingHero = () => {
         {/* Carousel Container */}
         <div
           ref={carouselRef}
-          className="relative w-full overflow-x-auto mb-8 px-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="relative w-full overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
-          <div className="flex items-center justify-start gap-12 min-w-[160vw]">
+          <div 
+            className="flex items-center justify-start gap-12"
+            style={{ 
+              minWidth: '300vw', // Increased width for more scroll space
+              paddingLeft: '100vw', // Full viewport width padding on left
+              paddingRight: '100vw' // Full viewport width padding on right
+            }}
+          >
             {/* Left Image with Dynamic Scaling */}
             <div 
               style={{ 
