@@ -57,7 +57,7 @@ const HoneymoonFund = () => {
                 THANK YOU
               </h2>
               <p className="font-sans text-lg md:text-xl tracking-wider leading-relaxed mb-8 animate-fade-in-up">
-                YOUR GENEROUS CONTRIBUTION MEANS THE WORLD TO US
+                FROM THE BOTTOM OF OUR HEARTS
               </p>
             </div>
           </div>
@@ -68,22 +68,18 @@ const HoneymoonFund = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-12">
               <h3 className="font-cinzel text-3xl md:text-4xl font-medium mb-8 tracking-wide">
-                With All Our Love
+                Your love and generosity mean the world to us.
               </h3>
               <div className="space-y-6 font-sans text-lg md:text-xl tracking-wider text-gray-700 leading-relaxed">
                 <p>
-                  Your kindness and generosity have touched our hearts deeply. 
-                  Because of your thoughtful contribution, we'll be able to create 
-                  unforgettable memories on our honeymoon journey.
-                </p>
-                <p>
-                  Every moment of our adventure will be enriched by knowing that 
-                  we have such wonderful people in our lives who care about our happiness. 
-                  Your gift is not just a contribution to our honeymoon—it's a blessing 
-                  that will be part of our story forever.
-                </p>
-                <p className="font-cinzel text-2xl md:text-3xl font-medium tracking-widest text-black mt-8">
-                  We can't wait to share our adventures with you!
+                  
+
+Thank you so much for your kind contribution to our journey. Knowing that you're part of this special chapter brings us so much joy and gratitude. Every gift, thought, and prayer is a piece of love that we'll carry with us forever.
+
+We feel incredibly blessed to have you in our lives.
+
+With all our love,
+[Your Names]
                 </p>
               </div>
             </div>
