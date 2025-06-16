@@ -1,13 +1,117 @@
-
 import React from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import HoneymoonFundForm from "../components/HoneymoonFundForm";
 import OptimizedBackground from "../components/OptimizedBackground";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const HoneymoonFund = () => {
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const paymentSuccess = searchParams.get('paymentSuccess') === 'true';
+
+  // If payment was successful, show thank you page
+  if (paymentSuccess) {
+    return (
+      <div className="min-h-screen bg-white text-black overflow-x-hidden">
+        {/* Navigation Header */}
+        <nav className="w-full py-6 lg:pt-12 px-4 flex justify-between items-center sm:px-8 relative z-50 bg-white">
+          <button
+            onClick={() => navigate("/")}
+            className="text-black hover:text-gray-600 transition-colors duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <div className="flex-1 flex justify-center items-center">
+            <h1 className="font-cinzel text-3xl md:text-5xl font-bold tracking-wide">
+              Haady & Nizra
+            </h1>
+          </div>
+          <div className="w-8"></div>
+        </nav>
+
+        {/* Thank You Hero Section */}
+        <OptimizedBackground
+          src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
+          className="min-h-[60vh] grayscale lg:min-h-[70vh]"
+          overlay={true}
+          overlayOpacity={0.6}
+          priority={true}
+        >
+          <div className="flex flex-col items-center justify-center min-h-[60vh] lg:min-h-[70vh] w-full">
+            <div className="text-center text-white max-w-4xl px-4">
+              <h2 className="font-cinzel text-4xl md:text-6xl lg:text-7xl font-medium mb-6 tracking-widest animate-fade-in">
+                THANK YOU
+              </h2>
+              <p className="font-sans text-lg md:text-xl tracking-wider leading-relaxed mb-8 animate-fade-in-up">
+                YOUR GENEROUS CONTRIBUTION MEANS THE WORLD TO US
+              </p>
+            </div>
+          </div>
+        </OptimizedBackground>
+
+        {/* Heartfelt Message Section */}
+        <div className="py-16 lg:py-24 px-4 sm:px-8 bg-white">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-12">
+              <h3 className="font-cinzel text-3xl md:text-4xl font-medium mb-8 tracking-wide">
+                With All Our Love
+              </h3>
+              <div className="space-y-6 font-sans text-lg md:text-xl tracking-wider text-gray-700 leading-relaxed">
+                <p>
+                  Your kindness and generosity have touched our hearts deeply. 
+                  Because of your thoughtful contribution, we'll be able to create 
+                  unforgettable memories on our honeymoon journey.
+                </p>
+                <p>
+                  Every moment of our adventure will be enriched by knowing that 
+                  we have such wonderful people in our lives who care about our happiness. 
+                  Your gift is not just a contribution to our honeymoon—it's a blessing 
+                  that will be part of our story forever.
+                </p>
+                <p className="font-cinzel text-2xl md:text-3xl font-medium tracking-widest text-black mt-8">
+                  We can't wait to share our adventures with you!
+                </p>
+              </div>
+            </div>
+
+            {/* Back to Home Button */}
+            <button
+              onClick={() => navigate("/")}
+              className="font-sans text-sm md:text-lg uppercase tracking-wider bg-black text-white px-12 py-5 hover:bg-white hover:text-black border border-black transition-colors duration-300"
+            >
+              Back to Home
+            </button>
+          </div>
+        </div>
+
+        {/* Signature Section */}
+        <div className="bg-gray-50 py-16 px-4 text-center">
+          <div className="max-w-4xl mx-auto">
+            <p className="font-cinzel text-xl md:text-2xl font-medium mb-2 tracking-widest">
+              With Endless Gratitude
+            </p>
+            <p className="font-cinzel text-2xl md:text-3xl font-bold tracking-wider text-black">
+              Haady & Nizra
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
