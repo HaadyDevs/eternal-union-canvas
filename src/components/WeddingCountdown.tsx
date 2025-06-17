@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import OptimizedBackground from "./OptimizedBackground";
 
@@ -39,10 +38,10 @@ const WeddingCountdown = () => {
 
   return (
     <OptimizedBackground
-      src="/time.webp"
+      src="https://jewelrystorenewbraunfels.com/wp-content/uploads/hero-img.jpg"
       className="w-full py-16 md:py-64 lg:py-96"
       overlay={true}
-      overlayOpacity={0.4}
+      overlayOpacity={0.5}
     >
       <section className="relative">
         {/* Content */}
@@ -60,7 +59,7 @@ const WeddingCountdown = () => {
               <div className="font-cinzel text-6xl md:text-7xl lg:text-[12rem] font-bold">
                 {timeLeft.days.toString().padStart(2, "0")}
               </div>
-              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-gray-400 mt-4">
+              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-white mt-4">
                 Days
               </div>
             </div>
@@ -69,7 +68,7 @@ const WeddingCountdown = () => {
               <div className="font-cinzel text-6xl md:text-7xl lg:text-[12rem] font-bold">
                 {timeLeft.hours.toString().padStart(2, "0")}
               </div>
-              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-gray-400 mt-4">
+              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-white mt-4">
                 Hours
               </div>
             </div>
@@ -78,7 +77,7 @@ const WeddingCountdown = () => {
               <div className="font-cinzel text-6xl md:text-7xl lg:text-[12rem] font-bold">
                 {timeLeft.minutes.toString().padStart(2, "0")}
               </div>
-              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-gray-400 mt-4">
+              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-white mt-4">
                 Minutes
               </div>
             </div>
@@ -87,7 +86,7 @@ const WeddingCountdown = () => {
               <div className="font-cinzel text-6xl md:text-7xl lg:text-[12rem] font-bold">
                 {timeLeft.seconds.toString().padStart(2, "0")}
               </div>
-              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-gray-400 mt-4">
+              <div className="font-sans text-base md:text-lg lg:text-3xl uppercase tracking-widest text-white mt-4">
                 Seconds
               </div>
             </div>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import OptimizedImage from "./OptimizedImage";
@@ -102,6 +101,54 @@ const WeddingHero = () => {
     const scale = 1 + (1 - normalizedDistance) * 0.2; // Increased scale factor for more noticeable effect
 
     return Math.max(1, Math.min(scale, 1.2));
+  };
+
+  // Calculate grayscale filter based on scroll position
+  const getGrayscaleFilter = (imageIndex: number) => {
+    if (typeof window === "undefined" || window.innerWidth >= 1024) return 1;
+
+    const carousel = carouselRef.current;
+    if (!carousel) return 1;
+
+    // Don't apply to center image
+    if (imageIndex === 1) return 1;
+
+    const scrollLeft = scrollPosition;
+    const containerWidth = carousel.clientWidth;
+    const viewportWidth = window.innerWidth;
+
+    // Image dimensions
+    const sideImageWidth = 240;
+    const centerImageWidth = 280;
+    const gap = 48;
+
+    // Calculate the position of each image
+    const leftImagePosition = 0;
+    const centerImagePosition = sideImageWidth + gap;
+    const rightImagePosition = sideImageWidth + gap + centerImageWidth + gap;
+
+    // Calculate the viewport center
+    const viewportCenter = scrollLeft + containerWidth / 2;
+
+    // Determine which image to process
+    let targetPosition;
+    if (imageIndex === 0) {
+      targetPosition = leftImagePosition;
+    } else if (imageIndex === 2) {
+      targetPosition = rightImagePosition;
+    } else {
+      return 1;
+    }
+
+    // Calculate distance from viewport center to image center
+    const distance = Math.abs(
+      viewportCenter - (targetPosition + sideImageWidth / 2)
+    );
+    const maxDistance = sideImageWidth * 1.5;
+
+    // Grayscale increases as image moves away from center
+    const normalizedDistance = Math.min(distance / maxDistance, 1);
+    return normalizedDistance;
   };
 
   return (
@@ -209,7 +256,9 @@ const WeddingHero = () => {
               <OptimizedImage
                 src="/4.webp"
                 alt="Wedding photo 1"
-                className="w-full h-full grayscale transition-all duration-300"
+                className={`w-full h-full transition-all duration-300 ${
+                  getGrayscaleFilter(0) > 0.5 ? "grayscale" : ""
+                }`}
                 priority={true}
                 sizes="(max-width: 768px) 240px, 240px"
               />
@@ -224,7 +273,7 @@ const WeddingHero = () => {
               }}
               className="relative z-10"
             >
-              <span className="absolute top-4 left-1/2 -translate-x-1/2 font-cinzel text-6xl xs:text-5xl sm:text-6xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20">
+              <span className="absolute top-4 left-1/2 -translate-x-1/2 font-cinzel text-[clamp(3.5rem,4vw,2.5rem)] xs:text-5xl sm:text-6xl font-medium text-black tracking-widest select-none whitespace-nowrap py-1 rounded z-20">
                 13&bull;07&bull;2025
               </span>
               <OptimizedImage
@@ -250,7 +299,9 @@ const WeddingHero = () => {
               <OptimizedImage
                 src="/5.webp"
                 alt="Wedding photo 2"
-                className="w-full h-full grayscale transition-all duration-300"
+                className={`w-full h-full transition-all duration-300 ${
+                  getGrayscaleFilter(2) > 0.5 ? "grayscale" : ""
+                }`}
                 priority={true}
                 sizes="(max-width: 768px) 240px, 240px"
               />
