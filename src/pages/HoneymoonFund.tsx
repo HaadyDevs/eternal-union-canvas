@@ -8,7 +8,7 @@ const HoneymoonFund = () => {
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const paymentSuccess = searchParams.get('paymentSuccess') === 'true';
+  const paymentSuccess = searchParams.get("paymentSuccess") === "true";
 
   // If payment was successful, show thank you page
   if (paymentSuccess) {
@@ -46,12 +46,12 @@ const HoneymoonFund = () => {
         {/* Thank You Hero Section */}
         <OptimizedBackground
           src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-          className="min-h-[60vh] grayscale lg:min-h-[70vh]"
+          className="min-h-[40vh] grayscale h-40 lg:min-h-[70vh]"
           overlay={true}
           overlayOpacity={0.6}
           priority={true}
         >
-          <div className="flex flex-col items-center justify-center min-h-[60vh] lg:min-h-[70vh] w-full">
+          <div className="flex flex-col items-center justify-center min-h-[40vh] h-40 lg:min-h-[70vh] w-full">
             <div className="text-center text-white max-w-4xl px-4">
               <h2 className="font-cinzel text-4xl md:text-6xl lg:text-7xl font-medium mb-6 tracking-widest animate-fade-in">
                 THANK YOU
@@ -72,14 +72,12 @@ const HoneymoonFund = () => {
               </h3>
               <div className="space-y-6 font-sans text-lg md:text-xl tracking-wider text-gray-700 leading-relaxed">
                 <p>
-                  
-
-Thank you so much for your kind contribution to our journey. Knowing that you're part of this special chapter brings us so much joy and gratitude. Every gift, thought, and prayer is a piece of love that we'll carry with us forever.
-
-We feel incredibly blessed to have you in our lives.
-
-With all our love,
-[Your Names]
+                  Thank you so much for your kind contribution to our journey.
+                  Knowing that you're part of this special chapter brings us so
+                  much joy and gratitude. Every gift, thought, and prayer is a
+                  piece of love that we'll carry with us forever. We feel
+                  incredibly blessed to have you in our lives. <br /> <br />{" "}
+                  With all our love <br /> <br /> Haady and Nizra
                 </p>
               </div>
             </div>
@@ -181,7 +179,8 @@ With all our love,
               Your Contribution
             </h3>
             <p className="font-sans text-lg tracking-wider text-gray-600 leading-relaxed">
-              Your generous contribution will help us embark on the adventure of a lifetime.
+              Your generous contribution will help us embark on the adventure of
+              a lifetime.
               <br />
               Every gift, no matter the size, means the world to us.
             </p>

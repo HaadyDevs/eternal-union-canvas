@@ -162,7 +162,7 @@ const RsvpForm = () => {
         <div className="mt-8 pt-6 border-t border-gray-200 text-center">
           <p className="font-sans text-sm text-gray-600 leading-relaxed">
             If you have any questions or need to make changes to your RSVP,
-            please don't hesitate to contact us or Whatsapp directly on <br />{" "}
+            please don't hesitate to contact us directly or Whatsapp on <br />{" "}
             +94 72 382 3256
           </p>
         </div>

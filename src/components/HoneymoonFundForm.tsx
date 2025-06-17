@@ -23,6 +23,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const HoneymoonFundForm = () => {
+  const locationApiKey = import.meta.env.VITE_LOCATION_API_KEY;
+  const stripeLankanUrl = import.meta.env.VITE_STRIPE_SRILANKAN_URL;
+  const stripeUsdUrl = import.meta.env.VITE_STRIPE_USD_URL;
+
   const [showBankDetails, setShowBankDetails] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFromSriLanka, setIsFromSriLanka] = useState(false);
@@ -42,7 +46,7 @@ const HoneymoonFundForm = () => {
     const checkLocation = async () => {
       try {
         const response = await fetch(
-          "https://api.ipgeolocation.io/ipgeo?apiKey=fd3fea31afed4abd94c07792a05c4e67"
+          `https://api.ipgeolocation.io/ipgeo?apiKey=${locationApiKey}`
         );
         const data = await response.json();
         setIsFromSriLanka(data.country_code2 === "LK");
@@ -67,8 +71,11 @@ const HoneymoonFundForm = () => {
   };
 
   const handleStripePayment = () => {
-    // TODO: Implement Stripe payment integration
-    console.log("Redirecting to Stripe payment...");
+    if (isFromSriLanka) {
+      window.location.href = stripeLankanUrl;
+    } else {
+      window.location.href = stripeUsdUrl;
+    }
   };
 
   const copyToClipboard = async (text: string, fieldName: string) => {
