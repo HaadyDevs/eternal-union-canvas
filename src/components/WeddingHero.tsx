@@ -1,5 +1,7 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
@@ -8,6 +10,8 @@ const WeddingHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   // Preload critical hero images
@@ -27,7 +31,6 @@ const WeddingHero = () => {
       const sidePadding = viewportWidth * 0.15; // 15vw padding on each side
 
       // Calculate the position that will center the middle image
-      // We want the middle image to be centered in the viewport
       const centerPosition =
         sidePadding +
         sideImageWidth +
@@ -35,23 +38,55 @@ const WeddingHero = () => {
         (viewportWidth - centerImageWidth) / 2;
 
       carousel.scrollLeft = centerPosition;
+      setScrollPosition(centerPosition);
     }
   }, []);
 
-  // Track carousel scroll for mobile scaling effect
+  // Track carousel scroll and update arrow visibility
   useEffect(() => {
     const handleScroll = () => {
       if (carouselRef.current) {
-        setScrollPosition(carouselRef.current.scrollLeft);
+        const scrollLeft = carouselRef.current.scrollLeft;
+        const scrollWidth = carouselRef.current.scrollWidth;
+        const clientWidth = carouselRef.current.clientWidth;
+        
+        setScrollPosition(scrollLeft);
+        
+        // Update arrow visibility based on scroll position
+        setShowLeftArrow(scrollLeft > 10); // Small threshold to account for precision
+        setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
       }
     };
 
     const carousel = carouselRef.current;
     if (carousel) {
       carousel.addEventListener("scroll", handleScroll);
+      // Initial check
+      handleScroll();
       return () => carousel.removeEventListener("scroll", handleScroll);
     }
   }, []);
+
+  // Smooth scroll functions
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      const scrollAmount = carouselRef.current.clientWidth * 0.8;
+      carouselRef.current.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      const scrollAmount = carouselRef.current.clientWidth * 0.8;
+      carouselRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // Calculate scale based on scroll position for mobile side images only
   const getSideImageScale = (imageIndex: number) => {
@@ -235,7 +270,28 @@ const WeddingHero = () => {
       </div>
 
       {/* Mobile/Tablet Layout with Scroll-based Scaling */}
-      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24 overflow-x-hidden">
+      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24 overflow-x-hidden relative">
+        {/* Navigation Arrows */}
+        {showLeftArrow && (
+          <button
+            onClick={scrollLeft}
+            className="fixed left-4 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white rounded-full p-3 transition-all duration-300 hover:scale-110 animate-pulse"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft size={24} strokeWidth={2} />
+          </button>
+        )}
+        
+        {showRightArrow && (
+          <button
+            onClick={scrollRight}
+            className="fixed right-4 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white rounded-full p-3 transition-all duration-300 hover:scale-110 animate-pulse"
+            aria-label="Scroll right"
+          >
+            <ChevronRight size={24} strokeWidth={2} />
+          </button>
+        )}
+
         {/* Carousel Container */}
         <div
           ref={carouselRef}
