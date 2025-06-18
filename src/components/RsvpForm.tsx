@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { submitRsvp, RsvpFormData } from "../services/rsvpService";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   guestName: z.string().min(2, {
@@ -33,6 +34,8 @@ type FormData = z.infer<typeof formSchema>;
 const RsvpForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  const navigate = useNavigate();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -53,20 +56,20 @@ const RsvpForm = () => {
         plusOnes: values.plusOnes,
         message: values.message,
       };
-      
+
       const rsvpId = await submitRsvp(rsvpData);
       console.log("RSVP submitted successfully with ID:", rsvpId);
-      
+
       toast({
         title: "RSVP Submitted Successfully!",
         description:
           "Thank you for your response. We can't wait to celebrate with you!",
       });
-      
       form.reset();
+      navigate("/");
     } catch (error) {
       console.error("RSVP submission error:", error);
-      
+
       toast({
         title: "Submission Failed",
         description:
