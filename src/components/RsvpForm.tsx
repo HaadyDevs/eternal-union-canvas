@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,8 +15,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { submitRsvp } from "../services/rsvpService";
 
 const formSchema = z.object({
   guestName: z.string().min(2, {
@@ -45,17 +47,29 @@ const RsvpForm = () => {
   const onSubmit = async (values: FormData) => {
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log("RSVP Form Data:", values);
+    try {
+      const rsvpId = await submitRsvp(values);
+      console.log("RSVP submitted successfully with ID:", rsvpId);
+      
       toast({
         title: "RSVP Submitted Successfully!",
         description:
           "Thank you for your response. We can't wait to celebrate with you!",
       });
+      
       form.reset();
+    } catch (error) {
+      console.error("RSVP submission error:", error);
+      
+      toast({
+        title: "Submission Failed",
+        description:
+          "There was an error submitting your RSVP. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
