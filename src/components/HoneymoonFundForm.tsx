@@ -14,6 +14,8 @@ import {
   FormMessage,
 } from "./ui/form";
 import { ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
+import { submitDonation } from "../services/donationService";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -32,6 +34,7 @@ const HoneymoonFundForm = () => {
   const [isFromSriLanka, setIsFromSriLanka] = useState(false);
   const [locationLoading, setLocationLoading] = useState(true);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -64,17 +67,63 @@ const HoneymoonFundForm = () => {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("Form submitted:", data);
-    setIsSubmitting(false);
+    try {
+      const formData: FormData = {
+        name: data.name,
+        message: data.message,
+      };
+      
+      await submitDonation(formData);
+      
+      toast({
+        title: "Thank you!",
+        description: "Your donation details have been recorded successfully.",
+      });
+      
+      // Redirect to success page
+      window.location.href = "/honeymoon-fund?paymentSuccess=true";
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      toast({
+        title: "Submission Error",
+        description: "There was an error recording your donation. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleStripePayment = () => {
-    if (isFromSriLanka) {
-      window.location.href = stripeLankanUrl;
-    } else {
-      window.location.href = stripeUsdUrl;
+  const handleStripePayment = async () => {
+    // First submit the form data to Firebase
+    if (!form.formState.isValid) {
+      toast({
+        title: "Please fill in required fields",
+        description: "Name is required before proceeding with payment.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const formData = form.getValues();
+      await submitDonation(formData);
+      
+      // Then open Stripe payment URL
+      const paymentUrl = isFromSriLanka ? stripeLankanUrl : stripeUsdUrl;
+      window.open(paymentUrl, '_blank');
+      
+      toast({
+        title: "Donation recorded",
+        description: "Your details have been saved. Complete payment in the new tab.",
+      });
+    } catch (error) {
+      console.error("Error submitting donation:", error);
+      toast({
+        title: "Submission Error",
+        description: "There was an error recording your donation. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
