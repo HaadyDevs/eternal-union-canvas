@@ -68,7 +68,7 @@ const HoneymoonFundForm = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const formData: FormData = {
+      const formData = {
         name: data.name,
         message: data.message,
       };
@@ -106,7 +106,11 @@ const HoneymoonFundForm = () => {
     }
 
     try {
-      const formData = form.getValues();
+      const values = form.getValues();
+      const formData = {
+        name: values.name || "",
+        message: values.message,
+      };
       await submitDonation(formData);
       
       // Then open Stripe payment URL
