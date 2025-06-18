@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { submitRsvp } from "../services/rsvpService";
+import { submitRsvp, RsvpFormData } from "../services/rsvpService";
 
 const formSchema = z.object({
   guestName: z.string().min(2, {
@@ -48,7 +47,14 @@ const RsvpForm = () => {
     setIsSubmitting(true);
 
     try {
-      const rsvpId = await submitRsvp(values);
+      // Ensure the values conform to RsvpFormData interface
+      const rsvpData: RsvpFormData = {
+        guestName: values.guestName,
+        plusOnes: values.plusOnes,
+        message: values.message,
+      };
+      
+      const rsvpId = await submitRsvp(rsvpData);
       console.log("RSVP submitted successfully with ID:", rsvpId);
       
       toast({
