@@ -34,25 +34,25 @@ const WeddingNavigation = () => {
 
   return (
     <>
-      <nav className="w-full pt-8 lg:pt-12 px-4 sm:px-8 relative z-50 bg-white">
+      <nav className="w-full pt-8 pb-4 lg:pt-12 lg:pb-6 px-4 sm:px-8 fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-sm">
         <div className="w-full flex justify-between items-center">
           {/* Desktop Navigation - Left Side */}
           <div className="hidden md:flex space-x-8">
             <button
               onClick={() => scrollToSection("schedule")}
-              className="font-cinzel text-sm hover:opacity-70 transition-opacity"
+              className="font-cinzel text-base hover:opacity-70 transition-opacity"
             >
               Schedule
             </button>
             <button
               onClick={() => scrollToSection("location")}
-              className="font-cinzel text-sm hover:opacity-70 transition-opacity"
+              className="font-cinzel text-base hover:opacity-70 transition-opacity"
             >
               Location
             </button>
             <button
               onClick={() => scrollToSection("gifts")}
-              className="font-cinzel text-sm hover:opacity-70 transition-opacity"
+              className="font-cinzel text-base hover:opacity-70 transition-opacity"
             >
               Gifts
             </button>
@@ -97,11 +97,14 @@ const WeddingNavigation = () => {
         </div>
       </nav>
 
+      {/* Add padding to account for fixed navigation */}
+      <div className="h-[100px] lg:h-[140px]"></div>
+
       {/* Mobile Navigation Overlay - Smooth fade in */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden fixed inset-0 top-[88px] bg-white z-40"
+            className="md:hidden fixed inset-0 top-[88px] bg-white/95 backdrop-blur-sm z-[99]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

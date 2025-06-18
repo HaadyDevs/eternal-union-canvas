@@ -59,10 +59,10 @@ const WeddingSchedule = () => {
 
   return (
     <OptimizedBackground
-      src="/schedule.webp"
-      className="w-full py-20 md:py-32 lg:py-48 grayscale"
+      src="https://thewed.com/storage/photos/November2024/thumbnails/1x/uspmzFJUkGJaOdI613gD.webp?1731410197"
+      className="w-full py-20 md:py-32 lg:py-48"
       overlay={true}
-      overlayOpacity={0.7}
+      overlayOpacity={0.8}
     >
       <section id="schedule" className="relative">
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -59,12 +59,10 @@ const RsvpForm = () => {
   };
 
   return (
-    <Card className="shadow-lg border-0 bg-white">
+    <Card className="shadow-lg border bg-white">
       <CardHeader className="text-center pb-8">
         <CardTitle className="font-cinzel text-2xl md:text-3xl font-medium tracking-wide flex items-center justify-center gap-3">
-          <Heart className="w-6 h-6 text-black" />
           Your Response
-          <Heart className="w-6 h-6 text-black" />
         </CardTitle>
       </CardHeader>
 
@@ -108,11 +106,20 @@ const RsvpForm = () => {
                       min="0"
                       max="5"
                       placeholder="0"
-                      className="h-12 border-gray-300 focus:border-black transition-colors"
+                      className="h-12 border-gray-300 focus:border-black transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       {...field}
-                      onChange={(e) =>
-                        field.onChange(parseInt(e.target.value) || 0)
-                      }
+                      value={field.value || ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "") {
+                          field.onChange(0);
+                        } else {
+                          const numValue = parseInt(value);
+                          if (!isNaN(numValue)) {
+                            field.onChange(numValue);
+                          }
+                        }
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

@@ -6,7 +6,7 @@ const WeddingLocation = () => {
     <section id="location" className="w-full py-24 md:py-32 bg-white">
       <div className="mx-auto sm:px-6 lg:px-64">
         {/* Section Title */}
-        <h2 className="text-center font-cinzel text-6xl md:text-7xl font-bold uppercase tracking-wide text-black -mb-20 z-50 relative">
+        <h2 className="text-center font-cinzel text-[55px] md:text-[6vw] font-bold uppercase tracking-wide text-black -mb-9 md:-mb-16 z-50 relative">
           LOCATION
         </h2>
 
@@ -24,7 +24,7 @@ const WeddingLocation = () => {
             <OptimizedImage
               src="/location.webp"
               alt="Windsor Castle"
-              className="w-64 md:w-96 opacity-90 grayscale"
+              className="w-64 md:w-96 grayscale"
               sizes="(max-width: 768px) 256px, 384px"
             />
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,6 +11,7 @@ const WeddingHero = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const [isSectionVisible, setIsSectionVisible] = useState(true);
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   // Preload critical hero images
@@ -42,19 +42,59 @@ const WeddingHero = () => {
     }
   }, []);
 
+  // Check if section is in viewport
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        // Check if the section is completely out of view
+        const isOutOfView = rect.bottom < 0 || rect.top > window.innerHeight;
+        setIsSectionVisible(!isOutOfView);
+
+        console.log("Section visibility:", {
+          top: rect.top,
+          bottom: rect.bottom,
+          windowHeight: window.innerHeight,
+          isOutOfView,
+          isVisible: !isOutOfView,
+        });
+      }
+    };
+
+    // Use passive scroll listener for better performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Track carousel scroll and update arrow visibility
   useEffect(() => {
     const handleScroll = () => {
       if (carouselRef.current) {
-        const scrollLeft = carouselRef.current.scrollLeft;
-        const scrollWidth = carouselRef.current.scrollWidth;
-        const clientWidth = carouselRef.current.clientWidth;
-        
+        const carousel = carouselRef.current;
+        const scrollLeft = carousel.scrollLeft;
+        const scrollWidth = carousel.scrollWidth;
+        const clientWidth = carousel.clientWidth;
+        const maxScroll = scrollWidth - clientWidth;
+        const scrollPercentage = (scrollLeft / maxScroll) * 100;
+
         setScrollPosition(scrollLeft);
-        
-        // Update arrow visibility based on scroll position
-        setShowLeftArrow(scrollLeft > 10); // Small threshold to account for precision
-        setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+
+        // Only update arrow visibility if section is visible
+        if (isSectionVisible) {
+          setShowLeftArrow(scrollPercentage > 30);
+          setShowRightArrow(scrollPercentage < 60);
+        } else {
+          setShowLeftArrow(false);
+          setShowRightArrow(false);
+        }
+
+        console.log("Arrow visibility:", {
+          scrollPercentage,
+          isSectionVisible,
+          showLeft: isSectionVisible && scrollPercentage > 30,
+          showRight: isSectionVisible && scrollPercentage < 60,
+        });
       }
     };
 
@@ -65,7 +105,7 @@ const WeddingHero = () => {
       handleScroll();
       return () => carousel.removeEventListener("scroll", handleScroll);
     }
-  }, []);
+  }, [isSectionVisible]);
 
   // Smooth scroll functions
   const scrollLeft = () => {
@@ -73,7 +113,7 @@ const WeddingHero = () => {
       const scrollAmount = carouselRef.current.clientWidth * 0.8;
       carouselRef.current.scrollBy({
         left: -scrollAmount,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -83,7 +123,7 @@ const WeddingHero = () => {
       const scrollAmount = carouselRef.current.clientWidth * 0.8;
       carouselRef.current.scrollBy({
         left: scrollAmount,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -215,7 +255,7 @@ const WeddingHero = () => {
             <OptimizedImage
               src="/4.webp"
               alt="Wedding photo 1"
-              className="w-[340px] h-[450px] grayscale shadow-lg hover:grayscale-0 hover:scale-105 transition-all duration-500"
+              className="w-[340px] h-[450px] shadow-lg hover:scale-105 transition-all duration-500"
               priority={true}
               sizes="340px"
             />
@@ -229,7 +269,7 @@ const WeddingHero = () => {
             <OptimizedImage
               src="/3.webp"
               alt="Couple portrait"
-              className="w-[500px] h-[700px] grayscale shadow-lg hover:grayscale-0 hover:scale-105 transition-all duration-500"
+              className="w-[500px] h-[700px] shadow-lg hover:scale-105 transition-all duration-500"
               priority={true}
               sizes="500px"
             />
@@ -243,7 +283,7 @@ const WeddingHero = () => {
             <OptimizedImage
               src="/5.webp"
               alt="Wedding photo 2"
-              className="w-[340px] h-[450px] grayscale shadow-lg hover:grayscale-0 hover:scale-105 transition-all duration-500"
+              className="w-[340px] h-[450px] shadow-lg hover:scale-105 transition-all duration-500"
               priority={true}
               sizes="340px"
             />
@@ -263,7 +303,7 @@ const WeddingHero = () => {
           LOVE, JOY, AND ETERNAL HAPPINESS.
         </p>
         <Link to="/rsvp">
-          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg animate-gentle-bounce">
+          <button className="font-sans text-sm md:text-lg mt-4 md:mt-8 uppercase tracking-wider bg-black text-white px-8 py-4 md:px-12 md:py-5 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
             RSVP Now
           </button>
         </Link>
@@ -275,17 +315,17 @@ const WeddingHero = () => {
         {showLeftArrow && (
           <button
             onClick={scrollLeft}
-            className="fixed left-4 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white rounded-full p-3 transition-all duration-300 hover:scale-110 animate-pulse"
+            className="fixed left-4 top-[50vh] -translate-y-1/2 z-30 text-black animate-bounce-x"
             aria-label="Scroll left"
           >
             <ChevronLeft size={24} strokeWidth={2} />
           </button>
         )}
-        
+
         {showRightArrow && (
           <button
             onClick={scrollRight}
-            className="fixed right-4 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 backdrop-blur-sm text-white rounded-full p-3 transition-all duration-300 hover:scale-110 animate-pulse"
+            className="fixed right-4 top-[50vh] -translate-y-1/2 z-30 text-black animate-bounce-x-reverse"
             aria-label="Scroll right"
           >
             <ChevronRight size={24} strokeWidth={2} />
@@ -312,9 +352,7 @@ const WeddingHero = () => {
               <OptimizedImage
                 src="/4.webp"
                 alt="Wedding photo 1"
-                className={`w-full h-full transition-all duration-300 ${
-                  getGrayscaleFilter(0) > 0.5 ? "grayscale" : ""
-                }`}
+                className={`w-full h-full transition-all duration-300`}
                 priority={true}
                 sizes="(max-width: 768px) 240px, 240px"
               />
@@ -335,7 +373,7 @@ const WeddingHero = () => {
               <OptimizedImage
                 src="/main.webp"
                 alt="Couple portrait"
-                className="w-full h-full grayscale transition-all duration-300"
+                className="w-full h-full transition-all duration-300"
                 priority={true}
                 sizes="(max-width: 768px) 500px, 500px"
               />
@@ -355,9 +393,7 @@ const WeddingHero = () => {
               <OptimizedImage
                 src="/5.webp"
                 alt="Wedding photo 2"
-                className={`w-full h-full transition-all duration-300 ${
-                  getGrayscaleFilter(2) > 0.5 ? "grayscale" : ""
-                }`}
+                className={`w-full h-full transition-all duration-300`}
                 priority={true}
                 sizes="(max-width: 768px) 240px, 240px"
               />

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -13,9 +12,9 @@ const WeddingRegistryDressCode = () => {
             <div className="text-center md:text-right mb-4 md:mb-0 md:w-1/4 md:pr-24 order-2 md:order-1 relative z-20">
               <p className="font-sans text-sm md:text-lg uppercase tracking-wider text-black text-center">
                 Your presence on our special day is the biggest gift we could
-                ask for — truly, no gifts are necessary! But for those
-                wonderfully stubborn ones ;) you can contribute to our Honeymoon
-                Fund and help us make unforgettable memories.
+                ask for — truly, no gifts are necessary! <br /> <br /> But for
+                those wonderfully stubborn ones ;) you can contribute to our
+                Honeymoon Fund and help us make unforgettable memories.
               </p>
             </div>
 
@@ -28,14 +27,14 @@ const WeddingRegistryDressCode = () => {
                 <img
                   src="https://emmalinebride.com/wp-content/uploads/2022/05/origami-wedding-card-for-money-gift.webp"
                   alt="Registry"
-                  className="w-72 md:w-[1000px] object-cover grayscale rounded"
+                  className="w-72 md:w-[1000px] object-cover"
                 />
               </div>
             </div>
 
             {/* Right Text */}
             <div className="text-center md:text-left md:w-1/4 md:pl-24 order-3 md:order-3 relative z-20">
-              <p className="font-sans text-sm md:text-lg uppercase tracking-wider text-black text-center">
+              <p className="font-sans font-bold text-sm md:text-lg uppercase tracking-wider text-black text-center">
                 If however it's just a gift you find, please be assured we will
                 not mind!
               </p>

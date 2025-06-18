@@ -124,7 +124,7 @@ const HoneymoonFundForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Share your wishes for our honeymoon journey..."
+                    placeholder="Share your wishes for us"
                     className="border-gray-300 focus:border-black rounded-none min-h-[120px] md:min-h-[180px] font-sans text-base md:text-xl resize-none"
                     {...field}
                   />
@@ -144,6 +144,28 @@ const HoneymoonFundForm = () => {
             >
               Donate by Card
             </Button>
+            <p className="text-xs text-gray-500 text-center mt-2 flex items-center justify-center gap-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+              Secure payment powered by{" "}
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
+                alt="Stripe"
+                className="h-3 inline-block"
+              />
+            </p>
 
             {/* Bank Transfer Option - Only show for Sri Lanka users */}
             {!locationLoading && isFromSriLanka && (
@@ -253,6 +275,16 @@ const HoneymoonFundForm = () => {
                     <p className="mt-4 text-xs md:text-base text-gray-600 font-sans">
                       Please include your name in the transfer reference
                     </p>
+                    <div className="mt-6">
+                      <Button
+                        type="button"
+                        onClick={() => form.handleSubmit(onSubmit)()}
+                        className="w-full font-cinzel text-sm md:text-lg uppercase tracking-wider bg-black text-white py-4 md:py-6 px-8 hover:bg-gray-800 border border-black transition-colors rounded-none h-auto"
+                        disabled={!form.formState.isValid || isSubmitting}
+                      >
+                        {isSubmitting ? "Confirming..." : "Confirm Transferred"}
+                      </Button>
+                    </div>
                   </div>
                 )}
               </div>

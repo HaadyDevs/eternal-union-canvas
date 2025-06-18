@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import RsvpForm from "../components/RsvpForm";
 import OptimizedBackground from "../components/OptimizedBackground";
@@ -7,6 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 const Rsvp = () => {
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const navigate = useNavigate();
+
+  // Reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
@@ -42,9 +47,9 @@ const Rsvp = () => {
       {/* Hero Section with Background */}
       <OptimizedBackground
         src="https://img.freepik.com/premium-photo/details-wedding-decor-forest-open-air_303941-1191.jpg"
-        className="min-h-[40vh] grayscale lg:min-h-[50vh]"
+        className="min-h-[40vh] lg:min-h-[50vh]"
         overlay={true}
-        overlayOpacity={0.5}
+        overlayOpacity={0.7}
         priority={true}
       >
         <div
@@ -62,7 +67,7 @@ const Rsvp = () => {
               RSVP
             </h2>
             <p
-              className={`font-sans text-lg md:text-xl tracking-wider leading-relaxed transition-all duration-700 delay-400 ${
+              className={`font-sans text-base md:text-xl tracking-wider leading-relaxed transition-all duration-700 delay-400 ${
                 isVisible ? "animate-fade-in-up" : "opacity-0"
               }`}
             >
@@ -79,10 +84,8 @@ const Rsvp = () => {
             <h3 className="font-cinzel text-3xl md:text-4xl font-medium mb-4 tracking-wide">
               Please Respond
             </h3>
-            <p className="font-sans text-lg tracking-wider text-gray-600 leading-relaxed">
+            <p className="font-sans text-base tracking-wider text-gray-600 leading-relaxed">
               Kindly confirm your attendance by filling out the form below.
-              <br />
-              We can't wait to celebrate with you!
             </p>
           </div>
 

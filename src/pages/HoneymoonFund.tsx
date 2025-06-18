@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import HoneymoonFundForm from "../components/HoneymoonFundForm";
 import OptimizedBackground from "../components/OptimizedBackground";
@@ -9,6 +9,11 @@ const HoneymoonFund = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const paymentSuccess = searchParams.get("paymentSuccess") === "true";
+
+  // Reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // If payment was successful, show thank you page
   if (paymentSuccess) {
@@ -46,9 +51,9 @@ const HoneymoonFund = () => {
         {/* Thank You Hero Section */}
         <OptimizedBackground
           src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-          className="min-h-[40vh] grayscale h-40 lg:min-h-[70vh]"
+          className="min-h-[40vh] h-40 lg:min-h-[70vh]"
           overlay={true}
-          overlayOpacity={0.6}
+          overlayOpacity={0.5}
           priority={true}
         >
           <div className="flex flex-col items-center justify-center min-h-[40vh] h-40 lg:min-h-[70vh] w-full">
@@ -93,7 +98,7 @@ const HoneymoonFund = () => {
         </div>
 
         {/* Signature Section */}
-        <div className="bg-gray-50 py-16 px-4 text-center">
+        <div className="bg-gray-50 py-8 px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <p className="font-cinzel text-xl md:text-2xl font-medium mb-2 tracking-widest">
               With Endless Gratitude
@@ -141,9 +146,9 @@ const HoneymoonFund = () => {
       {/* Hero Section with Background */}
       <OptimizedBackground
         src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-        className="min-h-[40vh] grayscale lg:min-h-[50vh]"
+        className="min-h-[40vh] lg:min-h-[50vh]"
         overlay={true}
-        overlayOpacity={0.6}
+        overlayOpacity={0.5}
         priority={true}
       >
         <div
@@ -161,7 +166,7 @@ const HoneymoonFund = () => {
               HONEYMOON FUND
             </h2>
             <p
-              className={`font-sans text-lg md:text-xl tracking-wider leading-relaxed transition-all duration-700 delay-400 ${
+              className={`font-sans text-sm md:text-xl tracking-wider leading-relaxed transition-all duration-700 delay-400 ${
                 isVisible ? "animate-fade-in-up" : "opacity-0"
               }`}
             >
@@ -178,9 +183,10 @@ const HoneymoonFund = () => {
             <h3 className="font-cinzel text-3xl md:text-4xl font-medium mb-4 tracking-wide">
               Your Contribution
             </h3>
-            <p className="font-sans text-lg tracking-wider text-gray-600 leading-relaxed">
+            <p className="font-sans text-sm tracking-wider text-gray-600 leading-relaxed">
               Your generous contribution will help us embark on the adventure of
               a lifetime.
+              <br />
               <br />
               Every gift, no matter the size, means the world to us.
             </p>
@@ -191,7 +197,7 @@ const HoneymoonFund = () => {
       </div>
 
       {/* Thank You Section */}
-      <div className="bg-gray-50 py-16 px-4 text-center">
+      <div className="bg-gray-50 py-8 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <p className="font-cinzel text-2xl md:text-3xl font-medium mb-4 tracking-widest">
             THANK YOU

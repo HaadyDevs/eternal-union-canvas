@@ -41,7 +41,7 @@ const WeddingCountdown = () => {
       src="https://jewelrystorenewbraunfels.com/wp-content/uploads/hero-img.jpg"
       className="w-full py-16 md:py-64 lg:py-96"
       overlay={true}
-      overlayOpacity={0.5}
+      overlayOpacity={0.7}
     >
       <section className="relative">
         {/* Content */}
