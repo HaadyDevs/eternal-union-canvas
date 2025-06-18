@@ -1,4 +1,3 @@
-
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -7,15 +6,21 @@ export interface DonationFormData {
   message?: string;
   submittedAt: Timestamp;
   submittedFrom: string;
+  type: "bank" | "card";
 }
 
-export const submitDonation = async (formData: { name: string; message?: string }) => {
+export const submitDonation = async (formData: {
+  name: string;
+  message?: string;
+  type: "bank" | "card";
+}) => {
   try {
     const donationData: DonationFormData = {
       name: formData.name,
       message: formData.message || "",
       submittedAt: Timestamp.now(),
       submittedFrom: "web",
+      type: formData.type,
     };
 
     const docRef = await addDoc(collection(db, "donations"), donationData);

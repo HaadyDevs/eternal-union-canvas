@@ -71,22 +71,26 @@ const HoneymoonFundForm = () => {
       const formData = {
         name: data.name,
         message: data.message,
+        type: "bank",
       };
-      
-      await submitDonation(formData);
-      
+
+      await submitDonation(
+        formData as { name: string; message?: string; type: "bank" | "card" }
+      );
+
       toast({
         title: "Thank you!",
         description: "Your donation details have been recorded successfully.",
       });
-      
+
       // Redirect to success page
       window.location.href = "/honeymoon-fund?paymentSuccess=true";
     } catch (error) {
       console.error("Error submitting donation:", error);
       toast({
         title: "Submission Error",
-        description: "There was an error recording your donation. Please try again.",
+        description:
+          "There was an error recording your donation. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -110,22 +114,25 @@ const HoneymoonFundForm = () => {
       const formData = {
         name: values.name || "",
         message: values.message,
+        type: "card" as "bank" | "card",
       };
       await submitDonation(formData);
-      
-      // Then open Stripe payment URL
+
+      // Then open Stripe payment URL in the same tab
       const paymentUrl = isFromSriLanka ? stripeLankanUrl : stripeUsdUrl;
-      window.open(paymentUrl, '_blank');
-      
+      window.location.href = paymentUrl;
+
       toast({
         title: "Donation recorded",
-        description: "Your details have been saved. Complete payment in the new tab.",
+        description:
+          "Your details have been saved. Complete payment in the new tab.",
       });
     } catch (error) {
       console.error("Error submitting donation:", error);
       toast({
         title: "Submission Error",
-        description: "There was an error recording your donation. Please try again.",
+        description:
+          "There was an error recording your donation. Please try again.",
         variant: "destructive",
       });
     }
