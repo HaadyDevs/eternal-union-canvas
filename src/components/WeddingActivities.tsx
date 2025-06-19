@@ -55,7 +55,7 @@ const WeddingActivities = () => {
                 className="flex flex-col items-center text-center group"
               >
                 {/* Icon */}
-                <div className="mb-6 p-6 border border-white group-hover:bg-white group-hover:text-black transition-colors">
+                <div className="mb-6 p-6 group-hover:bg-white group-hover:text-black transition-colors">
                   <IconComponent size={48} strokeWidth={1} className="text-white group-hover:text-black" />
                 </div>
 

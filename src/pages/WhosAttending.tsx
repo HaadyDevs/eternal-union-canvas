@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { Users, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import OptimizedBackground from "../components/OptimizedBackground";
+import { getRsvps, RsvpData } from "../services/rsvpService";
+import { useToast } from "../hooks/use-toast";
 
 const WhosAttending = () => {
-  const [attendees, setAttendees] = useState<Array<{ name: string; plusOnes: number }>>([]);
+  const [attendees, setAttendees] = useState<RsvpData[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Reset scroll position when component mounts
   useEffect(() => {
@@ -16,24 +19,31 @@ const WhosAttending = () => {
   }, []);
 
   useEffect(() => {
-    // TODO: Fetch actual attendees from Firebase
-    // Mock data for now
-    const mockAttendees = [
-      { name: "Sarah Johnson", plusOnes: 1 },
-      { name: "Michael Chen", plusOnes: 0 },
-      { name: "Emma Williams", plusOnes: 2 },
-      { name: "David Rodriguez", plusOnes: 1 },
-      { name: "Lisa Thompson", plusOnes: 0 },
-      { name: "James Wilson", plusOnes: 1 },
-      { name: "Anna Martinez", plusOnes: 3 },
-      { name: "Robert Brown", plusOnes: 0 },
-    ];
+    const fetchAttendees = async () => {
+      try {
+        const rsvpData = await getRsvps();
+        setAttendees(rsvpData);
+      } catch (error) {
+        console.error('Error fetching RSVPs:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load guest list. Please try again.",
+          variant: "destructive",
+        });
+        // Fallback to mock data if Firebase fails
+        const mockAttendees = [
+          { guestName: "Sarah Johnson", plusOnes: 1, submittedAt: { seconds: Date.now() / 1000 } as any, submittedFrom: "web" },
+          { guestName: "Michael Chen", plusOnes: 0, submittedAt: { seconds: Date.now() / 1000 } as any, submittedFrom: "web" },
+          { guestName: "Emma Williams", plusOnes: 2, submittedAt: { seconds: Date.now() / 1000 } as any, submittedFrom: "web" },
+        ];
+        setAttendees(mockAttendees);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setTimeout(() => {
-      setAttendees(mockAttendees);
-      setLoading(false);
-    }, 1000);
-  }, []);
+    fetchAttendees();
+  }, [toast]);
 
   const totalGuests = attendees.reduce((total, attendee) => total + 1 + attendee.plusOnes, 0);
 
@@ -93,7 +103,7 @@ const WhosAttending = () => {
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-4 border border-black">
+              <div className="mx-auto mb-4 p-4">
                 <Users size={48} strokeWidth={1} />
               </div>
               <CardTitle className="font-cinzel text-3xl md:text-4xl font-bold uppercase tracking-wide">
@@ -141,13 +151,18 @@ const WhosAttending = () => {
                         <User size={24} strokeWidth={1} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-cinzel text-lg font-semibold">{attendee.name}</h4>
+                        <h4 className="font-cinzel text-lg font-semibold">{attendee.guestName}</h4>
                         <p className="font-sans text-sm text-gray-600">
                           {attendee.plusOnes > 0 
                             ? `+ ${attendee.plusOnes} guest${attendee.plusOnes !== 1 ? 's' : ''}`
                             : "Solo guest"
                           }
                         </p>
+                        {attendee.message && (
+                          <p className="font-sans text-xs text-gray-500 mt-1 italic">
+                            "{attendee.message}"
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))}
