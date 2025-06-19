@@ -1,12 +1,19 @@
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Users, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Users, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import OptimizedBackground from "../components/OptimizedBackground";
 
 const WhosAttending = () => {
   const [attendees, setAttendees] = useState<Array<{ name: string; plusOnes: number }>>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // Reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     // TODO: Fetch actual attendees from Firebase
@@ -31,23 +38,58 @@ const WhosAttending = () => {
   const totalGuests = attendees.reduce((total, attendee) => total + 1 + attendee.plusOnes, 0);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="w-full pt-8 pb-4 lg:pt-12 lg:pb-6 px-4 sm:px-8">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2 hover:opacity-70 transition-opacity">
-            <ArrowLeft size={24} />
-            <span className="font-cinzel text-lg">Back to Wedding</span>
-          </Link>
+    <div className="min-h-screen bg-white text-black overflow-x-hidden">
+      {/* Navigation Header */}
+      <nav className="w-full py-6 lg:pt-12 px-4 flex justify-between items-center sm:px-8 relative z-50 bg-white">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-black hover:text-gray-600 transition-colors duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <div className="flex-1 flex justify-center items-center">
           <h1 className="font-cinzel text-3xl md:text-5xl font-bold tracking-wide">
             Haady & Nizra
           </h1>
-          <div className="w-24"></div>
         </div>
+        <div className="w-8"></div>
       </nav>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      {/* Hero Section with Background */}
+      <OptimizedBackground
+        src="https://img.freepik.com/premium-photo/group-happy-wedding-guests-celebrating-together_1048944-29751654.jpg"
+        className="min-h-[40vh] lg:min-h-[50vh]"
+        overlay={true}
+        overlayOpacity={0.7}
+        priority={true}
+      >
+        <div className="flex flex-col items-center justify-center min-h-[40vh] lg:min-h-[50vh] w-full">
+          <div className="text-center text-white max-w-4xl px-4">
+            <h2 className="font-cinzel text-4xl md:text-6xl lg:text-7xl font-medium mb-6 tracking-widest">
+              WHO'S ATTENDING?
+            </h2>
+            <p className="font-sans text-base md:text-xl tracking-wider leading-relaxed">
+              SEE WHO ELSE WILL BE CELEBRATING WITH US
+            </p>
+          </div>
+        </div>
+      </OptimizedBackground>
+
+      {/* Content Section */}
+      <div className="py-16 lg:py-24 px-4 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardHeader className="text-center">
@@ -55,7 +97,7 @@ const WhosAttending = () => {
                 <Users size={48} strokeWidth={1} />
               </div>
               <CardTitle className="font-cinzel text-3xl md:text-4xl font-bold uppercase tracking-wide">
-                Who's Attending?
+                Our Wedding Guests
               </CardTitle>
               <p className="font-sans text-lg text-gray-600 mt-4">
                 See who else will be celebrating with us on our special day
@@ -125,6 +167,18 @@ const WhosAttending = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </div>
+
+      {/* Wedding Date Reminder */}
+      <div className="bg-gray-50 py-16 px-4 text-center">
+        <div className="max-w-4xl mx-auto">
+          <p className="font-cinzel text-5xl md:text-3xl font-medium mb-4 tracking-widest">
+            13•07•2025
+          </p>
+          <p className="font-sans text-lg tracking-wider text-gray-600">
+            Save the date and join us for a day of love and celebration
+          </p>
         </div>
       </div>
     </div>
