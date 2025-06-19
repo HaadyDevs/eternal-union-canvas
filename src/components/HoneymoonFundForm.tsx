@@ -16,6 +16,8 @@ import {
 import { ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
 import { submitDonation } from "../services/donationService";
 import { useToast } from "@/hooks/use-toast";
+import { analytics } from "../firebase";
+import { logEvent } from "firebase/analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -99,6 +101,8 @@ const HoneymoonFundForm = () => {
   };
 
   const handleStripePayment = async () => {
+    // Log analytics event for Donate by Card button click
+    logEvent(analytics, "donate_by_card_click");
     // First submit the form data to Firebase
     if (!form.formState.isValid) {
       toast({
