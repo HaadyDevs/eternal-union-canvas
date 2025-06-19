@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plus, X } from "lucide-react";
@@ -55,6 +56,12 @@ const WeddingNavigation = () => {
               className="font-cinzel text-base hover:opacity-70 transition-opacity"
             >
               Gifts
+            </button>
+            <button
+              onClick={() => scrollToSection("activities")}
+              className="font-cinzel text-base hover:opacity-70 transition-opacity"
+            >
+              Activities
             </button>
           </div>
 
@@ -153,6 +160,17 @@ const WeddingNavigation = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   Gifts
+                </motion.button>
+                <motion.button
+                  onClick={() => {
+                    scrollToSection("activities");
+                    setIsOpen(false);
+                  }}
+                  className="font-cinzel text-2xl hover:opacity-70 transition-opacity"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Activities
                 </motion.button>
                 <Link to="/rsvp" onClick={() => setIsOpen(false)}>
                   <motion.button

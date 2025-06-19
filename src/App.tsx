@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Rsvp from "./pages/Rsvp";
 import HoneymoonFund from "./pages/HoneymoonFund";
+import ImageUpload from "./pages/ImageUpload";
+import PlaylistSelection from "./pages/PlaylistSelection";
+import WhosAttending from "./pages/WhosAttending";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +24,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/rsvp" element={<Rsvp />} />
           <Route path="/honeymoon-fund" element={<HoneymoonFund />} />
+          <Route path="/image-upload" element={<ImageUpload />} />
+          <Route path="/playlist" element={<PlaylistSelection />} />
+          <Route path="/whos-attending" element={<WhosAttending />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
