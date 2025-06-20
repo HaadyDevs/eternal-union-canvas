@@ -1,7 +1,9 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
+import ScrollIndicator from "./ScrollIndicator";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
@@ -12,6 +14,7 @@ const WeddingHero = () => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const [isSectionVisible, setIsSectionVisible] = useState(true);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const { ref: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   // Preload critical hero images
@@ -19,6 +22,44 @@ const WeddingHero = () => {
     images: ["/main.webp", "/4.webp", "/5.webp"],
     priority: true,
   });
+
+  // Initial scroll animation for mobile UX
+  useEffect(() => {
+    const performInitialScrollAnimation = () => {
+      // Only run on mobile
+      if (window.innerWidth >= 1024) return;
+      
+      // Scroll down slightly then back to top to show there's content below
+      setTimeout(() => {
+        window.scrollTo({
+          top: 120,
+          behavior: 'smooth'
+        });
+        
+        // After scrolling down, scroll back to top
+        setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }, 600);
+      }, 1000);
+    };
+
+    performInitialScrollAnimation();
+  }, []);
+
+  // Hide scroll indicator when user scrolls
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowScrollIndicator(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Center the carousel on initial load
   useEffect(() => {
@@ -128,6 +169,15 @@ const WeddingHero = () => {
     }
   };
 
+  // Handle scroll indicator click
+  const handleScrollIndicatorClick = () => {
+    window.scrollTo({
+      top: window.innerHeight * 0.8,
+      behavior: 'smooth'
+    });
+    setShowScrollIndicator(false);
+  };
+
   // Calculate scale based on scroll position for mobile side images only
   const getSideImageScale = (imageIndex: number) => {
     if (typeof window === "undefined" || window.innerWidth >= 1024) return 1;
@@ -229,7 +279,7 @@ const WeddingHero = () => {
   return (
     <div
       ref={heroRef as React.RefObject<HTMLDivElement>}
-      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 overflow-x-hidden ${
+      className={`flex flex-col items-center bg-white lg:min-h-[90vh] lg:justify-center transition-all duration-1000 overflow-x-hidden relative ${
         isVisible ? "animate-fade-in" : "opacity-0"
       }`}
     >
@@ -309,8 +359,8 @@ const WeddingHero = () => {
         </Link>
       </div>
 
-      {/* Mobile/Tablet Layout with Scroll-based Scaling */}
-      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-16 pb-24 overflow-x-hidden relative">
+      {/* Mobile/Tablet Layout with Enhanced UX */}
+      <div className="lg:hidden w-full flex flex-col items-center justify-center pt-8 pb-12 overflow-x-hidden relative min-h-[85vh]">
         {/* Navigation Arrows */}
         {showLeftArrow && (
           <button
@@ -335,10 +385,10 @@ const WeddingHero = () => {
         {/* Carousel Container */}
         <div
           ref={carouselRef}
-          className="relative w-screen items-center overflow-x-auto mb-8 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="relative w-screen items-center overflow-x-auto mb-6 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           <div className="flex items-center gap-12 min-w-max px-[15vw]">
-            {/* Left Image with Dynamic Scaling - Smaller width, taller height */}
+            {/* Left Image with Dynamic Scaling */}
             <div
               style={{
                 width: "240px",
@@ -358,7 +408,7 @@ const WeddingHero = () => {
               />
             </div>
 
-            {/* Center Image - Smaller width, taller height, with Date */}
+            {/* Center Image with Date */}
             <div
               style={{
                 width: "280px",
@@ -379,7 +429,7 @@ const WeddingHero = () => {
               />
             </div>
 
-            {/* Right Image with Dynamic Scaling - Smaller width, taller height */}
+            {/* Right Image with Dynamic Scaling */}
             <div
               style={{
                 width: "240px",
@@ -408,11 +458,20 @@ const WeddingHero = () => {
             HAPPINESS.
           </p>
           <Link to="/rsvp">
-            <button className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-8 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <button className="font-sans text-sm uppercase tracking-wider bg-black text-white px-8 py-4 mt-6 hover:bg-white hover:text-black border border-black transition-all duration-300 hover:scale-105 hover:shadow-lg">
               RSVP Now
             </button>
           </Link>
         </div>
+
+        {/* Gradient Fade Effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white/30 via-white/10 to-transparent pointer-events-none z-10"></div>
+
+        {/* Scroll Indicator */}
+        <ScrollIndicator 
+          isVisible={showScrollIndicator && window.innerWidth < 1024} 
+          onClick={handleScrollIndicatorClick}
+        />
       </div>
     </div>
   );
