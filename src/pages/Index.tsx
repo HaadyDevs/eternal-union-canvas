@@ -29,12 +29,6 @@ const WeddingRegistryDressCode = lazy(() =>
   }))
 );
 
-const WeddingActivities = lazy(() => 
-  import("../components/WeddingActivities").catch(() => ({
-    default: () => <div className="w-full py-16 text-center">Activities content unavailable</div>
-  }))
-);
-
 const WeddingFooter = lazy(() => 
   import("../components/WeddingFooter").catch(() => ({
     default: () => <div className="w-full py-16 text-center">Footer content unavailable</div>
@@ -92,12 +86,6 @@ const Index = () => {
       </AnimatedSection>
       
       <AnimatedSection delay={500}>
-        <Suspense fallback={<LoadingFallback />}>
-          <WeddingActivities />
-        </Suspense>
-      </AnimatedSection>
-      
-      <AnimatedSection delay={600}>
         <Suspense fallback={<LoadingFallback />}>
           <WeddingFooter />
         </Suspense>
