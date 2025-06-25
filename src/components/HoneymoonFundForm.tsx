@@ -101,8 +101,15 @@ const HoneymoonFundForm = () => {
   };
 
   const handleStripePayment = async () => {
-    // Log analytics event for Donate by Card button click
-    logEvent(analytics, "donate_by_card_click");
+    // Log analytics event for Donate by Card button click only if analytics is available
+    if (analytics) {
+      try {
+        logEvent(analytics, "donate_by_card_click");
+      } catch (error) {
+        console.warn("Failed to log analytics event:", error);
+      }
+    }
+    
     // First submit the form data to Firebase
     if (!form.formState.isValid) {
       toast({

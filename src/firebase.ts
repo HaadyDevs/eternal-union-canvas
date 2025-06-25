@@ -3,8 +3,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -18,9 +16,28 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Validate required configuration
+const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+const missingKeys = requiredKeys.filter(key => !firebaseConfig[key as keyof typeof firebaseConfig]);
+
+if (missingKeys.length > 0) {
+  console.error('Missing Firebase configuration values:', missingKeys);
+  console.error('Please check your environment variables are set correctly');
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialize Analytics only if measurementId is available and we're not in development
+let analytics: any = null;
+if (firebaseConfig.measurementId && typeof window !== 'undefined' && import.meta.env.PROD) {
+  try {
+    analytics = getAnalytics(app);
+  } catch (error) {
+    console.warn('Failed to initialize Firebase Analytics:', error);
+  }
+}
+
 const db = getFirestore(app);
 
 export { app, analytics, db };
